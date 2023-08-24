@@ -2,7 +2,6 @@
 const { codegen } = require('../../dist/index.js')
 
 codegen({
-  methodNameMode: 'path',
   source: require('../swagger.json'),
   // remoteUrl: 'http://localhost:44307/swagger/v1/swagger.json',
   outputDir: './swagger/services',
@@ -11,6 +10,6 @@ codegen({
   modelMode: 'interface',
   extendDefinitionFile: './swagger/customerDefinition.ts',
   extendGenericType: ['JsonResult'],
+  methodNameMode: 'path'
   // sharedServiceOptions: true,
-  classNameMode: 'parentPath'
 })

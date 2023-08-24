@@ -30,7 +30,7 @@ node_modules
 /connect.lock
 /coverage
 /libpeerconnection.log
-npm-debug.log
+pnpm-debug.log
 yarn-error.log
 testem.log
 /typings

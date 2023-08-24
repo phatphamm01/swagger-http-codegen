@@ -3,7 +3,11 @@ import { IRequestMethod } from './swaggerInterfaces'
 export interface ISwaggerOptions {
   serviceNameSuffix?: string
   enumNamePrefix?: string
-  methodNameMode?: 'operationId' | 'path' | 'shortOperationId' | ((reqProps: IRequestMethod) => string)
+  methodNameMode?:
+    | 'operationId'
+    | 'path'
+    | 'shortOperationId'
+    | ((reqProps: IRequestMethod) => string)
   classNameMode?: 'parentPath' | 'normal'
   /** only effect classNameMode='parentPath' */
   PathClassNameDefaultName?: string
@@ -11,7 +15,7 @@ export interface ISwaggerOptions {
   fileName?: string
   remoteUrl?: string
   source?: any
-  useStaticMethod?: boolean | undefined
+  // useStaticMethod?: boolean | undefined
   useCustomerRequestInstance?: boolean | undefined
   include?: Array<string | IInclude>
   /** include types which are not included during the filtering **/

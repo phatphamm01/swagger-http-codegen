@@ -1,6 +1,6 @@
 import camelcase from 'camelcase'
 import { IPropDef } from '../baseInterfaces'
-import { isDefinedGenericTypes, toBaseType } from '../utils'
+import { RemoveSpecialCharacters, isDefinedGenericTypes, toBaseType } from '../utils'
 
 const baseTypes = ['string', 'number', 'object', 'boolean', 'any']
 const isAdditionalProperties = (x: string) => x === "[additionalProperties: string]"
@@ -217,7 +217,7 @@ export function requestTemplate(name: string, requestSchema: IRequestSchema, opt
 /**
  * ${summary || ''}
  */
-${options.useStaticMethod ? 'static' : ''} ${camelcase(
+  ${camelcase(
     name
   )}(${parameters}options:IRequestOptions={}):Promise<${responseType}> {
   return new Promise((resolve, reject) => {
@@ -234,7 +234,7 @@ ${options.useStaticMethod ? 'static' : ''} ${camelcase(
     
     fetch(configs, ${resolveString}, reject);
   });
-}`
+},`
 }
 
 function requestBodyString(method: string, parsedParameters: [], bodyParameter: [], requestBody: string, contentType: string, formData: string) {
@@ -257,11 +257,12 @@ function requestBodyString(method: string, parsedParameters: [], bodyParameter: 
 export function serviceTemplate(name: string, body: string, imports: string[] = null) {
   // add base imports
   let mappedImports = !imports ? '' : `import { ${imports.join(',')}, } from './index.defs'\n`
+
   return `
 
   ${mappedImports}
-  export class ${name} {
+  export const ${camelcase(RemoveSpecialCharacters(name))} = (fetch: IFetchConfig) => ({
     ${body}
-  }
+  })
   `
 }

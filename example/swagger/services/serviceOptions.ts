@@ -12,7 +12,11 @@ export interface IRequestConfig {
   params?: any;
 }
 
-export type IFetchConfig = (config: IRequestConfig, resolve: (p: any) => void, reject: (p: any) => void) => Promise<any>
+export type IFetchConfig = (
+  config: IRequestConfig,
+  resolve: (p: any) => void,
+  reject: (p: any) => void
+) => Promise<any>;
 
 //example:
 // export function axios(configs: IRequestConfig, resolve: (p: any) => void, reject: (p: any) => void): Promise<any> {
@@ -29,10 +33,10 @@ export type IFetchConfig = (config: IRequestConfig, resolve: (p: any) => void, r
 // }
 
 export function getConfigs(method: string, contentType: string, url: string, options: any): IRequestConfig {
-  const configs: IRequestConfig = { ...options, method, url }
+  const configs: IRequestConfig = { ...options, method, url };
   configs.headers = {
     ...options.headers,
     'Content-Type': contentType
-  }
-  return configs
+  };
+  return configs;
 }

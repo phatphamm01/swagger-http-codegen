@@ -12,11 +12,11 @@
   "scripts": {
     "clean": "rm -rf ./swagger/services/**",
     "build:gen": "node ./swagger/codegen.js",
-    "build:api": "npm run clean && node ./swagger/codegen.js && npm run build",
-    "build:api-shortOperationId": "npm run clean && node ./swagger/codegen-shortOperationId.js && npm run build",
-    "build:api-customMethodNameMode": "npm run clean && node ./swagger/codegen-customMethodNameMode.js && npm run build",
-    "build:api-include": "node ./swagger/codegen.include.js && npm run build",
-    "build:api3": "node ./swagger/codegen.v3.js && npm run build",
+    "build:api": "pnpm run clean && node ./swagger/codegen.js && pnpm run build",
+    "build:api-shortOperationId": "pnpm run clean && node ./swagger/codegen-shortOperationId.js && pnpm run build",
+    "build:api-customMethodNameMode": "pnpm run clean && node ./swagger/codegen-customMethodNameMode.js && pnpm run build",
+    "build:api-include": "node ./swagger/codegen.include.js && pnpm run build",
+    "build:api3": "node ./swagger/codegen.v3.js && pnpm run build",
     "build": "tsc -p ./swagger"
   }
 }

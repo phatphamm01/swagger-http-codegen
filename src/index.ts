@@ -28,7 +28,7 @@ const defaultOptions: ISwaggerOptions = {
   PathClassNameDefaultName: 'Global',
   outputDir: './service',
   fileName: 'index.ts',
-  useStaticMethod: true,
+  // useStaticMethod: true,
   useCustomerRequestInstance: false,
   modelMode: 'interface',
   include: [],
@@ -79,10 +79,9 @@ export async function codegen(params: ISwaggerOptions) {
   // if (options.sharedServiceOptions) {
   if (true) {
     writeFile(options.outputDir || '', 'serviceOptions.ts' || '', format(serviceHeaderSource, options))
-    apiSource += `import { IRequestOptions, IRequestConfig, getConfigs } from "./serviceOptions";
-import fetch from "./fetch";
-
-`
+    apiSource += `import { IRequestOptions, IRequestConfig, IFetchConfig, getConfigs } from "./serviceOptions";
+    
+    `
 
   }
   else {
@@ -117,15 +116,13 @@ import fetch from "./fetch";
   let _allEnum = Object.values(enums)
   // TODO: next next next time
   if (options.multipleFileMode) {
-    // if (true) {
     Object.entries(requestCodegen(swaggerSource.paths, isV3, options)).forEach(([className, requests]) => {
       let text = ''
       let allImport: string[] = []
       requests.forEach(req => {
         const reqName = options.methodNameMode == 'operationId' ? req.operationId : req.name
         if ('register' === reqName) {
-          console.log('req.requestSchema.parsedParameters.imports', JSON.stringify(req.requestSchema.parsedParameters.imports));
-
+          // console.log('req.requestSchema.parsedParameters.imports', JSON.stringify(req.requestSchema.parsedParameters.imports));
         }
         text += requestTemplate(reqName, req.requestSchema, options)
         let imports = findDeepRefs(req.requestSchema.parsedParameters.imports, _allModel, _allEnum)
@@ -141,13 +138,15 @@ import fetch from "./fetch";
       console.log(disableLint());
 
       text = disableLint() + text
+      console.log({
+        className,
+        options
+      })
       text = serviceTemplate(className + options.serviceNameSuffix, text, uniqueImports)
       writeFile(options.outputDir || '', className + 'Service.ts', format(text, options))
     })
 
     let defsString = ''
-
-
 
     Object.values(models).forEach(item => {
       const text =
@@ -219,12 +218,16 @@ function codegenAll(
         const reqName = options.methodNameMode == 'operationId' ? req.operationId : req.name
         text += requestTemplate(reqName, req.requestSchema, options)
       })
+
+      console.log({
+        className,
+        options
+      })
       text = serviceTemplate(className + options.serviceNameSuffix, text)
       apiSource += text
     })
 
    // Handling classes and enums
-
     Object.values(models).forEach(item => {
       const text =
         options.modelMode === 'interface'
@@ -262,98 +265,6 @@ function codegenAll(
   }
 }
 
-// last include codegen
-function codegenInclude(
-  apiSource: string,
-  options: ISwaggerOptions,
-  requestClass: IRequestClass,
-  models: IDefinitionClasses,
-  enums: IDefinitionEnums) {
-
-  let requestClasses = Object.entries(requestClass)
- // Interface Filter Ingress
-  let reqSource = ''
-  let defSource = ''
-
-  let allModel = Object.values(models)
-  // console.log(allModel)
-  let allEnum = Object.values(enums)
-  let allImport: string[] = []
-
- // processing interface
-  options.include.forEach(item => {
-    let includeClassName = ''
-    let includeRequests: string[] = null
-    if (Object.prototype.toString.call(item) === '[object String]') {
-      includeClassName = <string>item
-    } else {
-      for (let k of Object.keys(item)) {
-        includeClassName = k
-        includeRequests = (<IInclude>item)[k]
-      }
-    }
-    for (let [className, requests] of requestClasses) {
-      if (pascalcase(includeClassName) !== className) continue
-      let text = ''
-      for (let req of requests) {
-        const reqName = options.methodNameMode == 'operationId' ? req.operationId : req.name
-        if (includeRequests) {
-          if (includeRequests.includes(reqName)) {
-            text += requestTemplate(reqName, req.requestSchema, options)
-            // generate ref definition model
-            let imports = findDeepRefs(req.requestSchema.parsedParameters.imports, allModel, allEnum)
-            allImport = allImport.concat(imports)
-          }
-        } else {
-          text += requestTemplate(reqName, req.requestSchema, options)
-          let imports = findDeepRefs(req.requestSchema.parsedParameters.imports, allModel, allEnum)
-          allImport = allImport.concat(imports)
-        }
-      }
-
-      text = serviceTemplate(className + options.serviceNameSuffix, text)
-      reqSource += text
-    }
-  })
-
-// Handling classes and enums
-  allModel.forEach(item => {
-    if (allImport.includes(item.name) || options.includeTypes.includes(item.name)) {
-      const text =
-        options.modelMode === 'interface'
-          ? interfaceTemplate(item.value.name, item.value.props, [], options.strictNullChecks)
-          : classTemplate(
-            item.value.name,
-            item.value.props,
-            [],
-            options.strictNullChecks,
-            options.useClassTransformer,
-            options.generateValidationModel
-          )
-      defSource += text
-    }
-  })
-
-  allEnum.forEach(item => {
-    if (allImport.includes(item.name) || options.includeTypes.includes(item.name)) {
-      let text = ''
-      if (item.value) {
-        if (item.value.type == 'string') {
-          text = enumTemplate(item.value.name, item.value.enumProps, options.enumNamePrefix)
-        } else {
-          text = typeTemplate(item.value.name, item.value.enumProps, options.enumNamePrefix)
-        }
-      } else {
-        text = item.content || ''
-      }
-
-      defSource += text
-    }
-  })
-
-  apiSource += reqSource + defSource
-  writeFile(options.outputDir || '', options.fileName || '', format(apiSource, options))
-}
 /** current multimatch codegen */
 function codegenMultimatchInclude(
   apiSource: string,
@@ -373,7 +284,7 @@ function codegenMultimatchInclude(
   let allEnum = Object.values(enums)
   let allImport: string[] = []
 
-  // #region 处理匹配集合
+  // #region Processing Match Sets
   const sourceClassNames = requestClasses.map(v => {
     const className = v[0]
     return className
@@ -415,8 +326,6 @@ function codegenMultimatchInclude(
       )
     })
   })
-  // console.log('className->requestRules', requiredClassNameMap)
-
   // #endregion
 
   // processing interface
@@ -442,6 +351,10 @@ function codegenMultimatchInclude(
         allImport = allImport.concat(imports)
       })
 
+      console.log({
+        className,
+        options
+      })
       text = serviceTemplate(className + options.serviceNameSuffix, text)
       apiSource += text
 

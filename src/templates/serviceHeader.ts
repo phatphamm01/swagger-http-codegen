@@ -1,7 +1,10 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { ISwaggerOptions } from '../baseInterfaces'
-import { abpGenericTypeDefinition, universalGenericTypeDefinition } from './genericTypeDefinitionTemplate'
+import {
+  abpGenericTypeDefinition,
+  universalGenericTypeDefinition,
+} from './genericTypeDefinitionTemplate'
 
 export function serviceHeader(options: ISwaggerOptions) {
   const classTransformerImport = options.useClassTransformer
@@ -106,7 +109,6 @@ function requestHeader() {
 export function definitionHeader(fileDir: string | undefined) {
   let fileStr = '// empty '
   if (!!fileDir) {
-    console.log('extendDefinitionFile url : ', path.resolve(fileDir))
     if (fs.existsSync(path.resolve(fileDir))) {
       const buffs = fs.readFileSync(path.resolve(fileDir))
       fileStr = buffs.toString('utf8')
