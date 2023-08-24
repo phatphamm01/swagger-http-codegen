@@ -9,6 +9,7 @@ export function definitionsCodeGen(definitions: IDefinitions) {
   let definitionEnums: IDefinitionEnums = {}
   if (!!definitions)
     for (const [k, v] of Object.entries(definitions)) {
+      //TODO: 31-08-2023
       let className = refClassName(k)
       // If it has been converted to a generic type, there is no need to redefine
       if (isGenerics(className)) {
@@ -28,7 +29,7 @@ export function definitionsCodeGen(definitions: IDefinitions) {
       } else {
         // default definition generate
         const { enums, model } = createDefinitionClass(className, v.properties, v.required)
-        enums.forEach(item => {
+        enums.forEach((item) => {
           definitionEnums[`#/definitions/${item.name}`] = {
             name: item.name,
             content: item.text

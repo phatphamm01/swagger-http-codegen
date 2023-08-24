@@ -48,7 +48,7 @@ export async function codegen(params: ISwaggerOptions) {
   let swaggerSource: ISwaggerSource
   let swaggerSpecFileName = `./${params.fileName}_cache_swagger.json`
   setDefinedGenericTypes(params.extendGenericType)
- // Get the interface definition file
+  // Get the interface definition file
 
   try {
     if (params.remoteUrl) {
@@ -115,81 +115,81 @@ export async function codegen(params: ISwaggerOptions) {
   let _allModel = Object.values(models)
   let _allEnum = Object.values(enums)
   // TODO: next next next time
-  if (options.multipleFileMode) {
-    Object.entries(requestCodegen(swaggerSource.paths, isV3, options)).forEach(([className, requests]) => {
-      let text = ''
-      let allImport: string[] = []
-      requests.forEach(req => {
-        const reqName = options.methodNameMode == 'operationId' ? req.operationId : req.name
-        if ('register' === reqName) {
-          // console.log('req.requestSchema.parsedParameters.imports', JSON.stringify(req.requestSchema.parsedParameters.imports));
-        }
-        text += requestTemplate(reqName, req.requestSchema, options)
-        let imports = findDeepRefs(req.requestSchema.parsedParameters.imports, _allModel, _allEnum)
-        allImport = allImport.concat(imports)
-      })
+  // if (options.multipleFileMode) {
+  //   Object.entries(requestCodegen(swaggerSource.paths, isV3, options)).forEach(([className, requests]) => {
+  //     let text = ''
+  //     let allImport: string[] = []
+  //     requests.forEach(req => {
+  //       const reqName = options.methodNameMode == 'operationId' ? req.operationId : req.name
+  //       if ('register' === reqName) {
+  //         // console.log('req.requestSchema.parsedParameters.imports', JSON.stringify(req.requestSchema.parsedParameters.imports));
+  //       }
+  //       text += requestTemplate(reqName, req.requestSchema, options)
+  //       let imports = findDeepRefs(req.requestSchema.parsedParameters.imports, _allModel, _allEnum)
+  //       allImport = allImport.concat(imports)
+  //     })
 
-      // unique import
-      const uniqueImports: string[] = []
-      allImport.push(...getDefinedGenericTypes(), 'IRequestOptions', 'IRequestConfig', 'getConfigs', 'axios', 'basePath')
-      for (const item of allImport) {
-        if (!uniqueImports.includes(item)) uniqueImports.push(item)
-      }
-      console.log(disableLint());
+  //     // unique import
+  //     const uniqueImports: string[] = []
+  //     allImport.push(...getDefinedGenericTypes(), 'IRequestOptions', 'IRequestConfig', 'getConfigs', 'axios', 'basePath')
+  //     for (const item of allImport) {
+  //       if (!uniqueImports.includes(item)) uniqueImports.push(item)
+  //     }
+  //     console.log(disableLint());
 
-      text = disableLint() + text
-      console.log({
-        className,
-        options
-      })
-      text = serviceTemplate(className + options.serviceNameSuffix, text, uniqueImports)
-      writeFile(options.outputDir || '', className + 'Service.ts', format(text, options))
-    })
+  //     text = disableLint() + text
+  //     console.log({
+  //       className,
+  //       options
+  //     })
+  //     text = serviceTemplate(className + options.serviceNameSuffix, text, uniqueImports)
+  //     writeFile(options.outputDir || '', className + 'Service.ts', format(text, options))
+  //   })
 
-    let defsString = ''
+  //   let defsString = ''
 
-    Object.values(models).forEach(item => {
-      const text =
-        params.modelMode === 'interface'
-          ? interfaceTemplate(item.value.name, item.value.props, [], params.strictNullChecks)
-          : classTemplate(
-            item.value.name,
-            item.value.props,
-            [],
-            params.strictNullChecks,
-            options.useClassTransformer,
-            options.generateValidationModel
-          )
-      defsString += text
-    })
+  //   Object.values(models).forEach(item => {
+  //     const text =
+  //       params.modelMode === 'interface'
+  //         ? interfaceTemplate(item.value.name, item.value.props, [], params.strictNullChecks)
+  //         : classTemplate(
+  //           item.value.name,
+  //           item.value.props,
+  //           [],
+  //           params.strictNullChecks,
+  //           options.useClassTransformer,
+  //           options.generateValidationModel
+  //         )
+  //     defsString += text
+  //   })
 
-    Object.values(enums).forEach(item => {
+  //   Object.values(enums).forEach(item => {
 
-      let text = ''
-      if (item.value) {
-        if (item.value.type == 'string') {
-          text = enumTemplate(item.value.name, item.value.enumProps, options.enumNamePrefix)
-        } else {
-          text = typeTemplate(item.value.name, item.value.enumProps, options.enumNamePrefix)
-        }
-      } else {
-        text = item.content || ''
-      }
-      defsString += text
+  //     let text = ''
+  //     if (item.value) {
+  //       if (item.value.type == 'string') {
+  //         text = enumTemplate(item.value.name, item.value.enumProps, options.enumNamePrefix)
+  //       } else {
+  //         text = typeTemplate(item.value.name, item.value.enumProps, options.enumNamePrefix)
+  //       }
+  //     } else {
+  //       text = item.content || ''
+  //     }
+  //     defsString += text
 
-    })
+  //   })
 
 
-    defsString = apiSource + defsString
-    writeFile(options.outputDir || '', 'index.defs.ts', format(defsString, options))
+  //   defsString = apiSource + defsString
+  //   writeFile(options.outputDir || '', 'index.defs.ts', format(defsString, options))
 
-  } else if (options.include && options.include.length > 0) {
-    // TODO: use filter plugin
-    codegenMultimatchInclude(apiSource, options, requestClass, models, enums)
-  }
-  else {
-    codegenAll(apiSource, options, requestClass, models, enums)
-  }
+  // } else if (options.include && options.include.length > 0) {
+  //   // TODO: use filter plugin
+  //   // codegenMultimatchInclude(apiSource, options, requestClass, models, enums)
+  // }
+  // else {
+  codegenAll(apiSource, options, requestClass, models, enums)
+  // }
   if (fs.existsSync(swaggerSpecFileName)) {
     fs.unlinkSync(swaggerSpecFileName)
   }
@@ -219,15 +219,11 @@ function codegenAll(
         text += requestTemplate(reqName, req.requestSchema, options)
       })
 
-      console.log({
-        className,
-        options
-      })
       text = serviceTemplate(className + options.serviceNameSuffix, text)
       apiSource += text
     })
 
-   // Handling classes and enums
+    // Handling classes and enums
     Object.values(models).forEach(item => {
       const text =
         options.modelMode === 'interface'
@@ -266,139 +262,139 @@ function codegenAll(
 }
 
 /** current multimatch codegen */
-function codegenMultimatchInclude(
-  apiSource: string,
-  options: ISwaggerOptions,
-  requestClass: IRequestClass,
-  models: IDefinitionClasses,
-  enums: IDefinitionEnums
-) {
+// function codegenMultimatchInclude(
+//   apiSource: string,
+//   options: ISwaggerOptions,
+//   requestClass: IRequestClass,
+//   models: IDefinitionClasses,
+//   enums: IDefinitionEnums
+// ) {
 
-  let requestClasses = Object.entries(requestClass)
- // Interface Filter Ingress
-  let reqSource = ''
-  let defSource = ''
+//   let requestClasses = Object.entries(requestClass)
+//  // Interface Filter Ingress
+//   let reqSource = ''
+//   let defSource = ''
 
-  let allModel = Object.values(models)
-  // console.log(allModel)
-  let allEnum = Object.values(enums)
-  let allImport: string[] = []
+//   let allModel = Object.values(models)
+//   // console.log(allModel)
+//   let allEnum = Object.values(enums)
+//   let allImport: string[] = []
 
-  // #region Processing Match Sets
-  const sourceClassNames = requestClasses.map(v => {
-    const className = v[0]
-    return className
-  })
+//   // #region Processing Match Sets
+//   const sourceClassNames = requestClasses.map(v => {
+//     const className = v[0]
+//     return className
+//   })
 
-  const includeRules: Record<string, Set<string>> = {}
-  options.include.forEach(classNameFilter => {
-    // *,?,**,{},!, 
-    // NOTICE: Currently className is required to be written in strict accordance with pascalcase
-    if (typeof classNameFilter === 'string') {
-      if (includeRules[classNameFilter] === undefined) {
-        includeRules[classNameFilter] = new Set()
-      }
-      includeRules[classNameFilter].add('*')
-    } else {
-      Object.keys(classNameFilter).forEach(key => {
-        if (includeRules[key] === undefined) {
-          includeRules[key] = new Set()
-        }
-        classNameFilter[key].forEach(requestFilter =>
-          includeRules[key].add(requestFilter)
-        )
-      })
-    }
-  })
- 
-  const matchedClassNames = multimatch(sourceClassNames, Object.keys(includeRules))
- 
-  const requiredClassNameMap: Record<string, Set<string>> = {}
-  Object.keys(includeRules).forEach(classNameFilter => {
-    // matched tagnames
-    const requiredClassNames = multimatch(matchedClassNames, classNameFilter)
-    requiredClassNames.forEach(className => {
-      if (requiredClassNameMap[className] === undefined) {
-        requiredClassNameMap[className] = new Set()
-      }
-      includeRules[classNameFilter].forEach(requestFilter =>
-        requiredClassNameMap[className].add(requestFilter)
-      )
-    })
-  })
-  // #endregion
+//   const includeRules: Record<string, Set<string>> = {}
+//   options.include.forEach(classNameFilter => {
+//     // *,?,**,{},!, 
+//     // NOTICE: Currently className is required to be written in strict accordance with pascalcase
+//     if (typeof classNameFilter === 'string') {
+//       if (includeRules[classNameFilter] === undefined) {
+//         includeRules[classNameFilter] = new Set()
+//       }
+//       includeRules[classNameFilter].add('*')
+//     } else {
+//       Object.keys(classNameFilter).forEach(key => {
+//         if (includeRules[key] === undefined) {
+//           includeRules[key] = new Set()
+//         }
+//         classNameFilter[key].forEach(requestFilter =>
+//           includeRules[key].add(requestFilter)
+//         )
+//       })
+//     }
+//   })
 
-  // processing interface
-  requestClasses.forEach(([className, requests]) => {
-    const includeRequestsFilters = requiredClassNameMap[className]
+//   const matchedClassNames = multimatch(sourceClassNames, Object.keys(includeRules))
 
-    if (includeRequestsFilters) {
-      let text = ''
-      const requestKeyMap: Record<string, IRequestMethods> = {}
-      const requestKeys = requests.map(v => {
-        const reqName = options.methodNameMode == 'operationId' ? v.operationId : v.name
-        requestKeyMap[reqName] = v
-        return reqName
-      })
+//   const requiredClassNameMap: Record<string, Set<string>> = {}
+//   Object.keys(includeRules).forEach(classNameFilter => {
+//     // matched tagnames
+//     const requiredClassNames = multimatch(matchedClassNames, classNameFilter)
+//     requiredClassNames.forEach(className => {
+//       if (requiredClassNameMap[className] === undefined) {
+//         requiredClassNameMap[className] = new Set()
+//       }
+//       includeRules[classNameFilter].forEach(requestFilter =>
+//         requiredClassNameMap[className].add(requestFilter)
+//       )
+//     })
+//   })
+//   // #endregion
 
-      const requsetRules = Array.from(includeRequestsFilters)
-      const requiredRequestKeys = multimatch(requestKeys, Array.from(requsetRules))
+//   // processing interface
+//   requestClasses.forEach(([className, requests]) => {
+//     const includeRequestsFilters = requiredClassNameMap[className]
 
-      requiredRequestKeys.forEach(reqName => {
-        const req = requestKeyMap[reqName]
-        text += requestTemplate(reqName, req.requestSchema, options)
-        let imports = findDeepRefs(req.requestSchema.parsedParameters.imports, allModel, allEnum)
-        allImport = allImport.concat(imports)
-      })
+//     if (includeRequestsFilters) {
+//       let text = ''
+//       const requestKeyMap: Record<string, IRequestMethods> = {}
+//       const requestKeys = requests.map(v => {
+//         const reqName = options.methodNameMode == 'operationId' ? v.operationId : v.name
+//         requestKeyMap[reqName] = v
+//         return reqName
+//       })
 
-      console.log({
-        className,
-        options
-      })
-      text = serviceTemplate(className + options.serviceNameSuffix, text)
-      apiSource += text
+//       const requsetRules = Array.from(includeRequestsFilters)
+//       const requiredRequestKeys = multimatch(requestKeys, Array.from(requsetRules))
 
-    }
-  })
+//       requiredRequestKeys.forEach(reqName => {
+//         const req = requestKeyMap[reqName]
+//         text += requestTemplate(reqName, req.requestSchema, options)
+//         let imports = findDeepRefs(req.requestSchema.parsedParameters.imports, allModel, allEnum)
+//         allImport = allImport.concat(imports)
+//       })
 
-  allModel.forEach(item => {
-    if (allImport.includes(item.name) || options.includeTypes.includes(item.name)) {
-      const text =
-        options.modelMode === 'interface'
-          ? interfaceTemplate(item.value.name, item.value.props, [], options.strictNullChecks)
-          : classTemplate(
-            item.value.name,
-            item.value.props,
-            [],
-            options.strictNullChecks,
-            options.useClassTransformer,
-            options.generateValidationModel
-          )
-      defSource += text
-    }
-  })
+//       console.log({
+//         className,
+//         options
+//       })
+//       text = serviceTemplate(className + options.serviceNameSuffix, text)
+//       apiSource += text
 
-  allEnum.forEach(item => {
-    if (allImport.includes(item.name) || options.includeTypes.includes(item.name)) {
-      let text = ''
-      if (item.value) {
-        if (item.value.type == 'string') {
-          text = enumTemplate(item.value.name, item.value.enumProps, options.enumNamePrefix)
-        } else {
-          text = typeTemplate(item.value.name, item.value.enumProps, options.enumNamePrefix)
-        }
-      } else {
-        text = item.content || ''
-      }
+//     }
+//   })
 
-      defSource += text
-    }
-  })
+//   allModel.forEach(item => {
+//     if (allImport.includes(item.name) || options.includeTypes.includes(item.name)) {
+//       const text =
+//         options.modelMode === 'interface'
+//           ? interfaceTemplate(item.value.name, item.value.props, [], options.strictNullChecks)
+//           : classTemplate(
+//             item.value.name,
+//             item.value.props,
+//             [],
+//             options.strictNullChecks,
+//             options.useClassTransformer,
+//             options.generateValidationModel
+//           )
+//       defSource += text
+//     }
+//   })
 
-  apiSource = disableLint() + apiSource
-  apiSource += reqSource + defSource
-  writeFile(options.outputDir || '', options.fileName || '', format(apiSource, options))
-}
+//   allEnum.forEach(item => {
+//     if (allImport.includes(item.name) || options.includeTypes.includes(item.name)) {
+//       let text = ''
+//       if (item.value) {
+//         if (item.value.type == 'string') {
+//           text = enumTemplate(item.value.name, item.value.enumProps, options.enumNamePrefix)
+//         } else {
+//           text = typeTemplate(item.value.name, item.value.enumProps, options.enumNamePrefix)
+//         }
+//       } else {
+//         text = item.content || ''
+//       }
+
+//       defSource += text
+//     }
+//   })
+
+//   apiSource = disableLint() + apiSource
+//   apiSource += reqSource + defSource
+//   writeFile(options.outputDir || '', options.fileName || '', format(apiSource, options))
+// }
 
 
 function writeFile(fileDir: string, name: string, data: any) {

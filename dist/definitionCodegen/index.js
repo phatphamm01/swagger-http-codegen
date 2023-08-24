@@ -9,6 +9,7 @@ function definitionsCodeGen(definitions) {
     let definitionEnums = {};
     if (!!definitions)
         for (const [k, v] of Object.entries(definitions)) {
+            //TODO: 31-08-2023
             let className = (0, utils_1.refClassName)(k);
             // If it has been converted to a generic type, there is no need to redefine
             if ((0, utils_1.isGenerics)(className)) {
@@ -29,7 +30,7 @@ function definitionsCodeGen(definitions) {
             else {
                 // default definition generate
                 const { enums, model } = (0, createDefinitionClass_1.createDefinitionClass)(className, v.properties, v.required);
-                enums.forEach(item => {
+                enums.forEach((item) => {
                     definitionEnums[`#/definitions/${item.name}`] = {
                         name: item.name,
                         content: item.text

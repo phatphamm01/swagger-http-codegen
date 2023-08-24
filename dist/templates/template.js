@@ -158,7 +158,7 @@ function requestTemplate(name, requestSchema, options) {
 /**
  * ${summary || ''}
  */
-${options.useStaticMethod ? 'static' : ''} ${(0, camelcase_1.default)(name)}(${parameters}options:IRequestOptions={}):Promise<${responseType}> {
+  ${(0, camelcase_1.default)(name)}(${parameters}options:IRequestOptions={}):Promise<${responseType}> {
   return new Promise((resolve, reject) => {
     let url = basePath+'${path}'
     ${pathReplace}
@@ -173,7 +173,7 @@ ${options.useStaticMethod ? 'static' : ''} ${(0, camelcase_1.default)(name)}(${p
     
     fetch(configs, ${resolveString}, reject);
   });
-}`;
+},`;
 }
 exports.requestTemplate = requestTemplate;
 function requestBodyString(method, parsedParameters, bodyParameter, requestBody, contentType, formData) {
@@ -197,9 +197,9 @@ function serviceTemplate(name, body, imports = null) {
     return `
 
   ${mappedImports}
-  export class ${name} {
+  export const ${(0, camelcase_1.default)((0, utils_1.RemoveSpecialCharacters)(name))} = (fetch: IFetchConfig) => ({
     ${body}
-  }
+  })
   `;
 }
 exports.serviceTemplate = serviceTemplate;

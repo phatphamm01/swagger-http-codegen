@@ -28,18 +28,18 @@ export interface IRequestMethod {
         [key: string]: {
             description: string;
             schema: {
-                '$ref': string;
-                'type'?: string;
-                'items'?: IParameterItems;
-                'format'?: string;
+                $ref: string;
+                type?: string;
+                items?: IParameterItems;
+                format?: string;
             };
             content: {
                 [key: string]: {
                     schema: {
-                        '$ref': string;
-                        'type'?: string;
-                        'items'?: IParameterItems;
-                        'format'?: string;
+                        $ref: string;
+                        type?: string;
+                        items?: IParameterItems;
+                        format?: string;
                     };
                 };
             };
@@ -108,11 +108,11 @@ export interface IComponents {
     };
 }
 export interface ISchema {
-    '$ref': string;
-    'type'?: string;
-    'items'?: IParameterItems;
-    'format'?: string;
-    'properties'?: {
+    $ref: string;
+    type?: string;
+    items?: IParameterItems;
+    format?: string;
+    properties?: {
         [key: string]: IParameterItems;
     };
 }

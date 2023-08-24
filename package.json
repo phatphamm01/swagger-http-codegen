@@ -1,6 +1,6 @@
 {
   "name": "swagger-http-codegen",
-  "version": "0.0.3",
+  "version": "0.0.8",
   "main": "./dist/index",
   "typings": "./dist/",
   "author": "Rinongusi <phatphamm01@gmail.com>",

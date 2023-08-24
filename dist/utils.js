@@ -62,14 +62,14 @@ exports.getGenericsClassNames = getGenericsClassNames;
  * @param s
  */
 function refClassName(s) {
-    let propType = s === null || s === void 0 ? void 0 : s.slice(s.lastIndexOf('/') + 1);
-    let result = (0, exports.isOpenApiGenerics)(propType)
-        ? getGenericsClassNames(propType)
-        : toBaseType(trimString(RemoveSpecialCharacters(propType), '_', 'right'));
-    // If it starts with a number, add an underscore
-    if (!Number.isNaN(Number(result[0])))
-        result = '_' + result;
-    return result;
+    // let propType = s?.slice(s.lastIndexOf('/') + 1)
+    // let result = isOpenApiGenerics(propType)
+    //   ? getGenericsClassNames(propType)
+    //   : toBaseType(trimString(RemoveSpecialCharacters(propType), '_', 'right'))
+    // // If it starts with a number, add an underscore
+    // if (!Number.isNaN(Number(result[0]))) result = '_' + result
+    // return result
+    return s.split('.').pop() || s;
 }
 exports.refClassName = refClassName;
 /** Remove special characters */

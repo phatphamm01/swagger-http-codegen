@@ -10,7 +10,6 @@ export interface ISwaggerOptions {
     fileName?: string;
     remoteUrl?: string;
     source?: any;
-    useStaticMethod?: boolean | undefined;
     useCustomerRequestInstance?: boolean | undefined;
     include?: Array<string | IInclude>;
     /** include types which are not included during the filtering **/

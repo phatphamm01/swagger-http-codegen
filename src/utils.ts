@@ -58,14 +58,16 @@ export function getGenericsClassNames(definitionClassName: string): string {
  * @param s
  */
 export function refClassName(s: string): string {
-  let propType = s?.slice(s.lastIndexOf('/') + 1)
-  let result = isOpenApiGenerics(propType)
-    ? getGenericsClassNames(propType)
-    : toBaseType(trimString(RemoveSpecialCharacters(propType), '_', 'right'))
+  // let propType = s?.slice(s.lastIndexOf('/') + 1)
+  // let result = isOpenApiGenerics(propType)
+  //   ? getGenericsClassNames(propType)
+  //   : toBaseType(trimString(RemoveSpecialCharacters(propType), '_', 'right'))
 
-  // If it starts with a number, add an underscore
-  if (!Number.isNaN(Number(result[0]))) result = '_' + result
-  return result
+  // // If it starts with a number, add an underscore
+  // if (!Number.isNaN(Number(result[0]))) result = '_' + result
+  // return result
+
+  return s.split('.').pop() || s
 }
 
 /** Remove special characters */
