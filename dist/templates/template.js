@@ -197,7 +197,7 @@ function serviceTemplate(name, body, imports = null) {
     return `
 
   ${mappedImports}
-  export const ${(0, camelcase_1.default)((0, utils_1.RemoveSpecialCharacters)(name))} = (fetch: IFetchConfig) => ({
+  export const ${name} = (fetch: IFetchConfig) => ({
     ${body}
   })
   `;

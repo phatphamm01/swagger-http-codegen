@@ -261,7 +261,7 @@ export function serviceTemplate(name: string, body: string, imports: string[] = 
   return `
 
   ${mappedImports}
-  export const ${camelcase(RemoveSpecialCharacters(name))} = (fetch: IFetchConfig) => ({
+  export const ${name} = (fetch: IFetchConfig) => ({
     ${body}
   })
   `

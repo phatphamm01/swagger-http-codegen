@@ -46,6 +46,7 @@ const utils_1 = require("./utils");
 const requestCodegen_1 = require("./requestCodegen");
 const componentsCodegen_1 = require("./componentsCodegen");
 const definitionCodegen_1 = require("./definitionCodegen");
+const camelcase_1 = __importDefault(require("camelcase"));
 const defaultOptions = {
     serviceNameSuffix: 'Service',
     enumNamePrefix: 'Enum',
@@ -221,9 +222,17 @@ function codegenAll(apiSource, options, requestClass, models, enums) {
                 const reqName = options.methodNameMode == 'operationId' ? req.operationId : req.name;
                 text += (0, template_1.requestTemplate)(reqName, req.requestSchema, options);
             });
-            text = (0, template_1.serviceTemplate)(className + options.serviceNameSuffix, text);
+            const name = (0, camelcase_1.default)((0, utils_1.RemoveSpecialCharacters)(className + options.serviceNameSuffix));
+            text = (0, template_1.serviceTemplate)(name, text);
             apiSource += text;
         });
+        let exportText = `\nexport const services = (fetch: IFetchConfig) => ({\n`;
+        requestClasses.forEach(([className, requests]) => {
+            const name = (0, camelcase_1.default)((0, utils_1.RemoveSpecialCharacters)(className + options.serviceNameSuffix));
+            exportText += `  ${name}: ${name}(fetch),\n`;
+        });
+        exportText += `})\n\n`;
+        apiSource += exportText;
         // Handling classes and enums
         Object.values(models).forEach(item => {
             const text = options.modelMode === 'interface'

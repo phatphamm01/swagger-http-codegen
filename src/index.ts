@@ -15,10 +15,11 @@ import {
   typeTemplate
 } from './templates/template'
 import { customerServiceHeader, serviceHeader, definitionHeader, disableLint } from './templates/serviceHeader'
-import { isOpenApi3, findDeepRefs, setDefinedGenericTypes, getDefinedGenericTypes, trimString } from './utils'
+import { isOpenApi3, findDeepRefs, setDefinedGenericTypes, getDefinedGenericTypes, trimString, RemoveSpecialCharacters } from './utils'
 import { requestCodegen, IRequestClass, IRequestMethods } from './requestCodegen'
 import { componentsCodegen } from './componentsCodegen'
 import { definitionsCodeGen } from './definitionCodegen'
+import camelcase from 'camelcase'
 
 const defaultOptions: ISwaggerOptions = {
   serviceNameSuffix: 'Service',
@@ -218,10 +219,18 @@ function codegenAll(
         const reqName = options.methodNameMode == 'operationId' ? req.operationId : req.name
         text += requestTemplate(reqName, req.requestSchema, options)
       })
-
-      text = serviceTemplate(className + options.serviceNameSuffix, text)
+      const name = camelcase(RemoveSpecialCharacters(className + options.serviceNameSuffix))
+      text = serviceTemplate(name, text)
       apiSource += text
     })
+
+    let exportText = `\nexport const services = (fetch: IFetchConfig) => ({\n`
+    requestClasses.forEach(([className, requests]) => {
+      const name = camelcase(RemoveSpecialCharacters(className + options.serviceNameSuffix))
+      exportText +=  `  ${name}: ${name}(fetch),\n`
+    })
+    exportText  +=  `})\n\n`
+    apiSource += exportText
 
     // Handling classes and enums
     Object.values(models).forEach(item => {

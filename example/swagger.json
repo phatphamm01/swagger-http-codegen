@@ -1,18 +1,84 @@
 {
   "swagger": "2.0",
   "info": {
-    "contact": {}
+    "description": "Documentation for Peadkah API",
+    "title": "Peadkah API",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "name": "API Support",
+      "url": "http://www.swagger.io/support",
+      "email": "support@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0"
   },
+  "host": "localhost:3002",
   "paths": {
-    "/repository/create": {
+    "/coupon/": {
       "post": {
-        "description": "Create repository",
-        "tags": ["Repository"],
-        "summary": "Create repository",
+        "tags": ["Coupon"],
+        "summary": "CreateCoupon CouponService",
         "parameters": [
           {
-            "description": "Repository name",
+            "description": "name",
             "name": "name",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "description",
+            "name": "description",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "image",
+            "name": "image",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "couponValidIn",
+            "name": "couponValidIn",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "userCouponValidIn",
+            "name": "userCouponValidIn",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "status",
+            "name": "status",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "type",
+            "name": "type",
             "in": "body",
             "required": true,
             "schema": {
@@ -21,52 +87,108 @@
           }
         ],
         "responses": {
-          "202": {
-            "description": "Accepted",
+          "200": {
+            "description": "OK",
             "schema": {
-              "type": "string"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "schema": {
-              "type": "string"
+              "$ref": "#/definitions/main.CreateCouponResponse"
             }
           }
         }
       }
     },
-    "/repository/list": {
-      "get": {
-        "description": "Get list repository",
-        "tags": ["Repository"],
-        "summary": "Get list repository",
+    "/coupon/{id}": {
+      "put": {
+        "tags": ["Coupon"],
+        "summary": "UpdateCoupon CouponService",
+        "parameters": [
+          {
+            "type": "string",
+            "description": ":id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "name",
+            "name": "name",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "description",
+            "name": "description",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "image",
+            "name": "image",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "couponValidIn",
+            "name": "couponValidIn",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "userCouponValidIn",
+            "name": "userCouponValidIn",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "status",
+            "name": "status",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "type",
+            "name": "type",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "type": "string"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "schema": {
-              "type": "string"
+              "$ref": "#/definitions/main.UpdateCouponResponse"
             }
           }
         }
-      }
-    },
-    "/repository/{repositoryId}/branch": {
-      "get": {
-        "description": "Get list branch",
-        "tags": ["Repository"],
-        "summary": "Get list branch",
+      },
+      "delete": {
+        "tags": ["Coupon"],
+        "summary": "DeleteCoupon CouponService",
         "parameters": [
           {
             "type": "string",
-            "description": "Repository name",
-            "name": "repository",
+            "description": ":id",
+            "name": "id",
             "in": "path",
             "required": true
           }
@@ -75,41 +197,34 @@
           "200": {
             "description": "OK",
             "schema": {
-              "type": "string"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "schema": {
-              "type": "string"
+              "$ref": "#/definitions/main.DeleteCouponResponse"
             }
           }
         }
       }
     },
-    "/repository/{repositoryId}/commits": {
+    "/coupon/{id}/histories": {
       "get": {
-        "description": "Get list commits",
-        "tags": ["Repository"],
-        "summary": "Get list commits",
+        "tags": ["Market"],
+        "summary": "GetBoughtCouponHistories MarketService",
         "parameters": [
           {
             "type": "string",
-            "description": "Repository name",
-            "name": "repository",
+            "description": ":id",
+            "name": "id",
             "in": "path",
             "required": true
           },
           {
             "type": "integer",
-            "description": "Page",
+            "description": "page",
             "name": "page",
             "in": "query"
           },
           {
             "type": "integer",
-            "description": "Per page",
-            "name": "per_page",
+            "description": "pageSize",
+            "name": "pageSize",
             "in": "query"
           }
         ],
@@ -117,17 +232,548 @@
           "200": {
             "description": "OK",
             "schema": {
-              "type": "string"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "schema": {
-              "type": "string"
+              "$ref": "#/definitions/main.GetBoughtCouponHistoriesResponse"
             }
           }
         }
       }
+    },
+    "/location/": {
+      "get": {
+        "tags": ["Location"],
+        "summary": "Get LocationService",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "name",
+            "name": "name",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/main.GetLocationResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Location"],
+        "summary": "Create LocationService",
+        "parameters": [
+          {
+            "description": "name",
+            "name": "name",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "address",
+            "name": "address",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "lat",
+            "name": "lat",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "long",
+            "name": "long",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "image",
+            "name": "image",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/main.CreateLocationResponse"
+            }
+          }
+        }
+      }
+    },
+    "/location/{id}": {
+      "put": {
+        "tags": ["Location"],
+        "summary": "Update LocationService",
+        "parameters": [
+          {
+            "type": "string",
+            "description": ":id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "name",
+            "name": "name",
+            "in": "body",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "address",
+            "name": "address",
+            "in": "body",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "lat",
+            "name": "lat",
+            "in": "body",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "long",
+            "name": "long",
+            "in": "body",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "image",
+            "name": "image",
+            "in": "body",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/main.UpdateLocationResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Location"],
+        "summary": "Delete LocationService",
+        "parameters": [
+          {
+            "type": "string",
+            "description": ":id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/main.DeleteLocationResponse"
+            }
+          }
+        }
+      }
+    },
+    "/marketplace/": {
+      "get": {
+        "tags": ["Market"],
+        "summary": "GetMarketListByType MarketService",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "page",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "pageSize",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "search",
+            "name": "search",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "sortField",
+            "name": "sortField",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "sortOrder",
+            "name": "sortOrder",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "type",
+            "name": "type",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/main.GetMarketListByTypeResponse"
+            }
+          }
+        }
+      }
+    },
+    "/marketplace/buy-coupon": {
+      "post": {
+        "tags": ["Market"],
+        "summary": "UserBuyCoupon MarketService",
+        "parameters": [
+          {
+            "description": "userId",
+            "name": "userId",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "couponId",
+            "name": "couponId",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "point",
+            "name": "point",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/main.UserBuyCouponResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get UserService",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/main.GetUserResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "main.CreateCouponResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      }
+    },
+    "main.CreateLocationResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "main.DeleteCouponResponse": {
+      "type": "object"
+    },
+    "main.DeleteLocationResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "main.GetBoughtCouponHistoriesResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/model.BoughtCouponHistory"
+          }
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    },
+    "main.GetLocationResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/model.Location"
+          }
+        },
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "main.GetMarketListByTypeResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/model.Coupon"
+          }
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    },
+    "main.GetUserResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "main.UpdateCouponResponse": {
+      "type": "object"
+    },
+    "main.UpdateLocationResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "main.UserBuyCouponResponse": {
+      "type": "object"
+    },
+    "model.BoughtCouponHistory": {
+      "type": "object",
+      "properties": {
+        "coupon": {
+          "$ref": "#/definitions/model.Coupon"
+        },
+        "couponId": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "point": {
+          "type": "integer"
+        },
+        "user": {
+          "$ref": "#/definitions/model.User"
+        },
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "model.Coupon": {
+      "type": "object",
+      "properties": {
+        "couponValidIn": {
+          "type": "integer"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/model.CouponStatus"
+        },
+        "type": {
+          "$ref": "#/definitions/model.CouponType"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "userCoupon": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/model.UserCoupon"
+          }
+        },
+        "userCouponValidIn": {
+          "type": "integer"
+        }
+      }
+    },
+    "model.CouponStatus": {
+      "type": "string",
+      "enum": ["ON_GOING", "ENDED"],
+      "x-enum-varnames": ["COUPON_ON_GOING", "COUPON_ENDED"]
+    },
+    "model.CouponType": {
+      "type": "string",
+      "enum": ["NFT", "COUPON"],
+      "x-enum-varnames": ["NFT", "COUPON"]
+    },
+    "model.Location": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "number"
+        },
+        "long": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "model.User": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "userCoupon": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/model.UserCoupon"
+          }
+        }
+      }
+    },
+    "model.UserCoupon": {
+      "type": "object",
+      "properties": {
+        "coupon": {
+          "$ref": "#/definitions/model.Coupon"
+        },
+        "couponId": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/model.UserCouponStatus"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/model.User"
+        },
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "model.UserCouponStatus": {
+      "type": "string",
+      "enum": ["COUPON_AVAILABLE", "COUPON_USED"],
+      "x-enum-varnames": ["COUPON_AVAILABLE", "COUPON_USED"]
     }
   }
 }
