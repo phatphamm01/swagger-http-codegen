@@ -217,12 +217,16 @@ function codegenAll(apiSource, options, requestClass, models, enums) {
         // processing interface
         requestClasses.forEach(([className, requests]) => {
             let text = '';
+            let textPath = "";
             requests.forEach(req => {
                 const reqName = options.methodNameMode == 'operationId' ? req.operationId : req.name;
                 text += (0, template_1.requestTemplate)(reqName, req.requestSchema, options);
+                textPath += (0, template_1.requestPathTemplate)(reqName, req.requestSchema, options);
             });
             const name = (0, camelcase_1.default)((0, utils_1.RemoveSpecialCharacters)(className + options.serviceNameSuffix));
             text = (0, template_1.serviceTemplate)(name, text);
+            textPath = (0, template_1.servicePathTemplate)(name, textPath);
+            apiSource += textPath;
             apiSource += text;
         });
         let exportText = `\nexport const services = (fetch: IFetchConfig) => ({\n`;

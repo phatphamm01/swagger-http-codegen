@@ -2,48 +2,66 @@
 // @ts-nocheck
 /* eslint-disable */
 
-import { IRequestOptions, IRequestConfig, IFetchConfig, getConfigs } from './serviceOptions';
+import { IRequestOptions, IRequestConfig, IFetchConfig, getConfigs } from './service-options';
 
 export const basePath = '';
+// empty
 
-export interface IList<T> extends Array<T> {}
-export interface List<T> extends Array<T> {}
-export interface IDictionary<TValue> {
-  [key: string]: TValue;
-}
-export interface Dictionary<TValue> extends IDictionary<TValue> {}
-
-export interface IListResult<T> {
-  items?: T[];
-}
-
-export class ListResultDto<T> implements IListResult<T> {
-  items?: T[];
-}
-
-export interface IPagedResult<T> extends IListResult<T> {
-  totalCount?: number;
-  items?: T[];
-}
-
-export class PagedResultDto<T = any> implements IPagedResult<T> {
-  totalCount?: number;
-  items?: T[];
-}
-
-// customer definition
-export interface JsonResult<T> {
-  code: number;
-  data: T;
-  message: string;
-  success: boolean;
-}
+export const couponServicePath = {
+  createCouponPath: '/coupon',
+  updateCouponPath: '/coupon/{id}',
+  deleteCouponPath: '/coupon/{id}'
+} as const;
 
 export const couponService = (fetch: IFetchConfig) => ({
+  ...couponServicePath,
+
+  /**
+   * CreateCoupon CouponService
+   */
+  createCoupon(
+    params: {
+      /** name */
+      name: string;
+      /** description */
+      description: string;
+      /** image */
+      image: string;
+      /** couponValidIn */
+      couponValidIn: number;
+      /** userCouponValidIn */
+      userCouponValidIn: number;
+      /** status */
+      status: string;
+      /** type */
+      type: string;
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<CreateCouponResponse> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + '/coupon/';
+
+      const configs: IRequestConfig = getConfigs('post', 'application/json', url, options);
+
+      let data = {
+        name: params['name'],
+        description: params['description'],
+        image: params['image'],
+        couponValidIn: params['couponValidIn'],
+        userCouponValidIn: params['userCouponValidIn'],
+        status: params['status'],
+        type: params['type']
+      };
+
+      configs.data = data;
+
+      fetch(configs, resolve, reject);
+    });
+  },
   /**
    * UpdateCoupon CouponService
    */
-  coupon(
+  updateCoupon(
     params: {
       /** :id */
       id: string;
@@ -88,7 +106,7 @@ export const couponService = (fetch: IFetchConfig) => ({
   /**
    * DeleteCoupon CouponService
    */
-  coupon1(
+  deleteCoupon(
     params: {
       /** :id */
       id: string;
@@ -110,11 +128,19 @@ export const couponService = (fetch: IFetchConfig) => ({
   }
 });
 
+export const marketServicePath = {
+  getBoughtCouponHistoriesMarketPath: '/coupon/{id}/histories',
+  getMarketListByTypeMarketPath: '/marketplace',
+  userBuyCouponMarketPath: '/marketplace/buy-coupon'
+} as const;
+
 export const marketService = (fetch: IFetchConfig) => ({
+  ...marketServicePath,
+
   /**
    * GetBoughtCouponHistories MarketService
    */
-  histories(
+  getBoughtCouponHistoriesMarket(
     params: {
       /** :id */
       id: string;
@@ -138,9 +164,47 @@ export const marketService = (fetch: IFetchConfig) => ({
     });
   },
   /**
+   * GetMarketListByType MarketService
+   */
+  getMarketListByTypeMarket(
+    params: {
+      /** page */
+      page?: number;
+      /** pageSize */
+      pageSize?: number;
+      /** search */
+      search?: string;
+      /** sortField */
+      sortField?: string;
+      /** sortOrder */
+      sortOrder?: string;
+      /** type */
+      type: string;
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<GetMarketListByTypeResponse> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + '/marketplace/';
+
+      const configs: IRequestConfig = getConfigs('get', 'application/json', url, options);
+      configs.params = {
+        page: params['page'],
+        pageSize: params['pageSize'],
+        search: params['search'],
+        sortField: params['sortField'],
+        sortOrder: params['sortOrder'],
+        type: params['type']
+      };
+
+      /**  Adapt to ios13, get request does not allow body */
+
+      fetch(configs, resolve, reject);
+    });
+  },
+  /**
    * UserBuyCoupon MarketService
    */
-  buyCoupon(
+  userBuyCouponMarket(
     params: {
       /** userId */
       userId: string;
@@ -165,11 +229,77 @@ export const marketService = (fetch: IFetchConfig) => ({
   }
 });
 
+export const locationServicePath = {
+  getLocationPath: '/location',
+  createLocationPath: '/location',
+  updateLocationPath: '/location/{id}',
+  deleteLocationPath: '/location/{id}'
+} as const;
+
 export const locationService = (fetch: IFetchConfig) => ({
+  ...locationServicePath,
+
+  /**
+   * Get LocationService
+   */
+  getLocation(
+    params: {
+      /** name */
+      name?: string;
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<GetLocationResponse> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + '/location/';
+
+      const configs: IRequestConfig = getConfigs('get', 'application/json', url, options);
+      configs.params = { name: params['name'] };
+
+      /**  Adapt to ios13, get request does not allow body */
+
+      fetch(configs, resolve, reject);
+    });
+  },
+  /**
+   * Create LocationService
+   */
+  createLocation(
+    params: {
+      /** name */
+      name: string;
+      /** address */
+      address: string;
+      /** lat */
+      lat: number;
+      /** long */
+      long: number;
+      /** image */
+      image: string;
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<CreateLocationResponse> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + '/location/';
+
+      const configs: IRequestConfig = getConfigs('post', 'application/json', url, options);
+
+      let data = {
+        name: params['name'],
+        address: params['address'],
+        lat: params['lat'],
+        long: params['long'],
+        image: params['image']
+      };
+
+      configs.data = data;
+
+      fetch(configs, resolve, reject);
+    });
+  },
   /**
    * Update LocationService
    */
-  location(
+  updateLocation(
     params: {
       /** :id */
       id: string;
@@ -208,7 +338,7 @@ export const locationService = (fetch: IFetchConfig) => ({
   /**
    * Delete LocationService
    */
-  location1(
+  deleteLocation(
     params: {
       /** :id */
       id: string;
@@ -230,11 +360,17 @@ export const locationService = (fetch: IFetchConfig) => ({
   }
 });
 
+export const userServicePath = {
+  getUserPath: '/user'
+} as const;
+
 export const userService = (fetch: IFetchConfig) => ({
+  ...userServicePath,
+
   /**
    * Get UserService
    */
-  user(options: IRequestOptions = {}): Promise<GetUserResponse> {
+  getUser(options: IRequestOptions = {}): Promise<GetUserResponse> {
     return new Promise((resolve, reject) => {
       let url = basePath + '/user';
 

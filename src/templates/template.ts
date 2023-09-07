@@ -237,6 +237,12 @@ export function requestTemplate(name: string, requestSchema: IRequestSchema, opt
 },`
 }
 
+export function requestPathTemplate(name: string, requestSchema: IRequestSchema, options: any) {
+  let {path = ''} = requestSchema
+  path = path.endsWith('/') ? path.slice(0, -1) : path
+  return `${camelcase(name)}Path: "${path}",\n`
+}
+
 function requestBodyString(method: string, parsedParameters: [], bodyParameter: [], requestBody: string, contentType: string, formData: string) {
   if (method !== 'get') {
     return `
@@ -262,7 +268,17 @@ export function serviceTemplate(name: string, body: string, imports: string[] = 
 
   ${mappedImports}
   export const ${name} = (fetch: IFetchConfig) => ({
+    ...${name}Path,
     ${body}
   })
+  `
+}
+
+
+export function servicePathTemplate(name: string, body: string) {
+  return `
+  export const ${name}Path =  ({
+    ${body}
+  }) as const
   `
 }

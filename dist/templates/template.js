@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.serviceTemplate = exports.requestTemplate = exports.typeTemplate = exports.enumTemplate = exports.classConstructorTemplate = exports.classTransformTemplate = exports.classValidationModelTemplate = exports.propValidationModelTemplate = exports.classPropsTemplate = exports.classTemplate = exports.interfaceTemplate = void 0;
+exports.servicePathTemplate = exports.serviceTemplate = exports.requestPathTemplate = exports.requestTemplate = exports.typeTemplate = exports.enumTemplate = exports.classConstructorTemplate = exports.classTransformTemplate = exports.classValidationModelTemplate = exports.propValidationModelTemplate = exports.classPropsTemplate = exports.classTemplate = exports.interfaceTemplate = void 0;
 const camelcase_1 = __importDefault(require("camelcase"));
 const utils_1 = require("../utils");
 const baseTypes = ['string', 'number', 'object', 'boolean', 'any'];
@@ -176,6 +176,12 @@ function requestTemplate(name, requestSchema, options) {
 },`;
 }
 exports.requestTemplate = requestTemplate;
+function requestPathTemplate(name, requestSchema, options) {
+    let { path = '' } = requestSchema;
+    path = path.endsWith('/') ? path.slice(0, -1) : path;
+    return `${(0, camelcase_1.default)(name)}Path: "${path}",\n`;
+}
+exports.requestPathTemplate = requestPathTemplate;
 function requestBodyString(method, parsedParameters, bodyParameter, requestBody, contentType, formData) {
     if (method !== 'get') {
         return `
@@ -198,9 +204,18 @@ function serviceTemplate(name, body, imports = null) {
 
   ${mappedImports}
   export const ${name} = (fetch: IFetchConfig) => ({
+    ...${name}Path,
     ${body}
   })
   `;
 }
 exports.serviceTemplate = serviceTemplate;
+function servicePathTemplate(name, body) {
+    return `
+  export const ${name}Path =  ({
+    ${body}
+  }) as const
+  `;
+}
+exports.servicePathTemplate = servicePathTemplate;
 //# sourceMappingURL=template.js.map

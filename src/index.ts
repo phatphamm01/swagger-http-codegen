@@ -12,7 +12,9 @@ import {
   enumTemplate,
   interfaceTemplate,
   classTemplate,
-  typeTemplate
+  typeTemplate,
+  requestPathTemplate,
+  servicePathTemplate
 } from './templates/template'
 import { customerServiceHeader, serviceHeader, definitionHeader, disableLint } from './templates/serviceHeader'
 import { isOpenApi3, findDeepRefs, setDefinedGenericTypes, getDefinedGenericTypes, trimString, RemoveSpecialCharacters } from './utils'
@@ -84,7 +86,7 @@ export async function codegen(params: ISwaggerOptions) {
     
     `
 
-  }else {
+  } else {
     apiSource += serviceHeaderSource
   }
   // Changing to basePath everywhere allows multi-file mode to be used
@@ -214,21 +216,27 @@ function codegenAll(
     // processing interface
     requestClasses.forEach(([className, requests]) => {
       let text = ''
+      let textPath = ""
+      
       requests.forEach(req => {
         const reqName = options.methodNameMode == 'operationId' ? req.operationId : req.name
         text += requestTemplate(reqName, req.requestSchema, options)
+        textPath += requestPathTemplate(reqName, req.requestSchema, options)
       })
       const name = camelcase(RemoveSpecialCharacters(className + options.serviceNameSuffix))
       text = serviceTemplate(name, text)
+      textPath = servicePathTemplate(name, textPath)
+      
+      apiSource += textPath
       apiSource += text
     })
 
     let exportText = `\nexport const services = (fetch: IFetchConfig) => ({\n`
     requestClasses.forEach(([className, requests]) => {
       const name = camelcase(RemoveSpecialCharacters(className + options.serviceNameSuffix))
-      exportText +=  `  ${name}: ${name}(fetch),\n`
+      exportText += `  ${name}: ${name}(fetch),\n`
     })
-    exportText  +=  `})\n\n`
+    exportText += `})\n\n`
     apiSource += exportText
 
     // Handling classes and enums

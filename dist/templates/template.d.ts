@@ -26,6 +26,8 @@ interface IRequestSchema {
 }
 /** requestTemplate */
 export declare function requestTemplate(name: string, requestSchema: IRequestSchema, options: any): string;
+export declare function requestPathTemplate(name: string, requestSchema: IRequestSchema, options: any): string;
 /** serviceTemplate */
 export declare function serviceTemplate(name: string, body: string, imports?: string[]): string;
+export declare function servicePathTemplate(name: string, body: string): string;
 export {};
