@@ -102,10 +102,9 @@ function codegen(params) {
         const options = Object.assign(Object.assign({}, defaultOptions), params);
         let apiSource = '';
         let serviceHeaderSource = options.useCustomerRequestInstance ? (0, serviceHeader_1.customerServiceHeader)(options) : (0, serviceHeader_1.serviceHeader)(options);
-        // if (options.sharedServiceOptions) {
         if (true) {
-            writeFile(options.outputDir || '', 'serviceOptions.ts' || '', format(serviceHeaderSource, options));
-            apiSource += `import { IRequestOptions, IRequestConfig, IFetchConfig, getConfigs } from "./serviceOptions";
+            writeFile(options.outputDir || '', 'service-options.ts' || '', format(serviceHeaderSource, options));
+            apiSource += `import { IRequestOptions, IRequestConfig, IFetchConfig, getConfigs } from "./service-options";
     
     `;
         }

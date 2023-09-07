@@ -60,7 +60,6 @@ function requestCodegen(paths, isV3, options) {
                     requestClasses[className] = [];
                 }
                 let parameters = '';
-                let handleNullParameters = '';
                 let parsedParameters = {
                     requestParameters: ''
                 };

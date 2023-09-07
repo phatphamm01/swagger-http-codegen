@@ -66,7 +66,6 @@ export function requestCodegen(paths: IPaths, isV3: boolean, options: ISwaggerOp
           requestClasses[className] = []
         }
         let parameters = ''
-        let handleNullParameters = ''
         let parsedParameters: any = {
           requestParameters: ''
         }

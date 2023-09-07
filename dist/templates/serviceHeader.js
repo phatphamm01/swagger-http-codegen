@@ -26,7 +26,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.definitionHeader = exports.customerServiceHeader = exports.disableLint = exports.serviceHeader = void 0;
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
-const genericTypeDefinitionTemplate_1 = require("./genericTypeDefinitionTemplate");
 function serviceHeader(options) {
     const classTransformerImport = options.useClassTransformer
         ? `import { Expose, Transform, Type, plainToClass } from 'class-transformer';
@@ -135,9 +134,6 @@ function definitionHeader(fileDir) {
         }
     }
     return `
-  ${(0, genericTypeDefinitionTemplate_1.universalGenericTypeDefinition)()}
-  ${(0, genericTypeDefinitionTemplate_1.abpGenericTypeDefinition)()}
-  // customer definition
   ${fileStr}
   `;
 }

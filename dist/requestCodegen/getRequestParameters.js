@@ -26,6 +26,9 @@ function getUniqParams(params) {
     });
     return Object.values(uniqParams);
 }
+const isNumber = (s) => {
+    return Number.isInteger(s);
+};
 /**
  * Generate parameters
  * @param params
@@ -39,8 +42,8 @@ function getRequestParameters(params, useHeaderParameters) {
     let bodyParameters = [];
     let headerParameters = [];
     let imports = [];
-    let moreBodyParams = params.filter(item => item.in === 'body').length > 1;
-    params.forEach(p => {
+    let moreBodyParams = params.filter((item) => item.in === 'body').length > 1;
+    params.forEach((p) => {
         // Skip the parameters in the request header according to the settings
         if (!useHeaderParameters && p.in === 'header')
             return;
@@ -70,7 +73,12 @@ function getRequestParameters(params, useHeaderParameters) {
         }
         // basic type
         else {
-            propType = (0, utils_1.toBaseType)(p.type);
+            if (p.enum) {
+                propType = p.enum.map((e) => (isNumber(e) ? e : `"${e}"`)).join(' | ');
+            }
+            else {
+                propType = (0, utils_1.toBaseType)(p.type);
+            }
         }
         const paramName = (0, camelcase_1.default)(p.name);
         requestParameters += `

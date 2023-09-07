@@ -25,6 +25,7 @@ export function mapFormDataToV2(schema: ISchema): IParameter[] {
       type: getType(properties[p])
     },
     type: properties[p].type,
-    format: getType(properties[p])
+    format: getType(properties[p]),
+    enum: null
   }))
 }

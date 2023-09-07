@@ -77,15 +77,14 @@ export async function codegen(params: ISwaggerOptions) {
   let apiSource = ''
 
   let serviceHeaderSource = options.useCustomerRequestInstance ? customerServiceHeader(options) : serviceHeader(options)
-  // if (options.sharedServiceOptions) {
+
   if (true) {
-    writeFile(options.outputDir || '', 'serviceOptions.ts' || '', format(serviceHeaderSource, options))
-    apiSource += `import { IRequestOptions, IRequestConfig, IFetchConfig, getConfigs } from "./serviceOptions";
+    writeFile(options.outputDir || '', 'service-options.ts' || '', format(serviceHeaderSource, options))
+    apiSource += `import { IRequestOptions, IRequestConfig, IFetchConfig, getConfigs } from "./service-options";
     
     `
 
-  }
-  else {
+  }else {
     apiSource += serviceHeaderSource
   }
   // Changing to basePath everywhere allows multi-file mode to be used

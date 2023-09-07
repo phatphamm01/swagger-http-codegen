@@ -23,7 +23,8 @@ function mapFormDataToV2(schema) {
             type: getType(properties[p])
         },
         type: properties[p].type,
-        format: getType(properties[p])
+        format: getType(properties[p]),
+        enum: null
     }));
 }
 exports.mapFormDataToV2 = mapFormDataToV2;

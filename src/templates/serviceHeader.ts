@@ -1,10 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { ISwaggerOptions } from '../baseInterfaces'
-import {
-  abpGenericTypeDefinition,
-  universalGenericTypeDefinition,
-} from './genericTypeDefinitionTemplate'
 
 export function serviceHeader(options: ISwaggerOptions) {
   const classTransformerImport = options.useClassTransformer
@@ -116,9 +112,6 @@ export function definitionHeader(fileDir: string | undefined) {
   }
 
   return `
-  ${universalGenericTypeDefinition()}
-  ${abpGenericTypeDefinition()}
-  // customer definition
   ${fileStr}
   `
 }

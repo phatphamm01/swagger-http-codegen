@@ -25,6 +25,10 @@ function getUniqParams(params: IParameter[]): IParameter[] {
   return Object.values(uniqParams)
 }
 
+const isNumber = (s: any) => {
+  return Number.isInteger(s)
+}
+
 /**
  * Generate parameters
  * @param params
@@ -38,8 +42,8 @@ export function getRequestParameters(params: IParameter[], useHeaderParameters: 
   let bodyParameters: string[] = []
   let headerParameters: string[] = []
   let imports: string[] = []
-  let moreBodyParams = params.filter(item => item.in === 'body').length > 1
-  params.forEach(p => {
+  let moreBodyParams = params.filter((item) => item.in === 'body').length > 1
+  params.forEach((p) => {
     // Skip the parameters in the request header according to the settings
     if (!useHeaderParameters && p.in === 'header') return
     let propType = ''
@@ -64,7 +68,11 @@ export function getRequestParameters(params: IParameter[], useHeaderParameters: 
     }
     // basic type
     else {
-      propType = toBaseType(p.type)
+      if (p.enum) {
+        propType = p.enum.map((e) => (isNumber(e) ? e : `"${e}"`)).join(' | ')
+      } else {
+        propType = toBaseType(p.type)
+      }
     }
 
     const paramName = camelcase(p.name)
