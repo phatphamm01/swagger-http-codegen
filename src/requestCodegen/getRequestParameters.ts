@@ -42,7 +42,7 @@ export function getRequestParameters(params: IParameter[], useHeaderParameters: 
   let bodyParameters: string[] = []
   let headerParameters: string[] = []
   let imports: string[] = []
-  let moreBodyParams = params.filter((item) => item.in === 'body').length > 1
+  const moreBodyParams = true
   params.forEach((p) => {
     // Skip the parameters in the request header according to the settings
     if (!useHeaderParameters && p.in === 'header') return
