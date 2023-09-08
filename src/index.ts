@@ -255,10 +255,15 @@ function codegenAll(
       apiSource += text
     })
 
+    const hashMapEnums: Record<string, boolean> = {}
     Object.values(enums).forEach(item => {
       let text = ''
+
+      if (hashMapEnums[item.value.name]) return
+
       if (item.value) {
         if (item.value.type == 'string') {
+          hashMapEnums[item.value.name]=true
           text = enumTemplate(item.value.name, item.value.enumProps, options.enumNamePrefix)
         } else {
           text = typeTemplate(item.value.name, item.value.enumProps, options.enumNamePrefix)
