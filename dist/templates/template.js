@@ -158,7 +158,7 @@ function requestTemplate(name, requestSchema, options) {
 /**
  * ${summary || ''}
  */
-  ${(0, camelcase_1.default)(name)}(${parameters}options:IRequestOptions={}):Promise<${responseType}> {
+  ${(0, camelcase_1.default)(name)}(${parameters}):Promise<${responseType}> {
   return new Promise((resolve, reject) => {
     let url = basePath+'${path}'
     ${pathReplace}

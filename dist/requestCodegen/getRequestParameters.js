@@ -42,7 +42,7 @@ function getRequestParameters(params, useHeaderParameters) {
     let bodyParameters = [];
     let headerParameters = [];
     let imports = [];
-    let moreBodyParams = params.filter((item) => item.in === 'body').length > 1;
+    const moreBodyParams = true;
     params.forEach((p) => {
         // Skip the parameters in the request header according to the settings
         if (!useHeaderParameters && p.in === 'header')
@@ -50,7 +50,10 @@ function getRequestParameters(params, useHeaderParameters) {
         let propType = '';
         // reference type definition
         if (p.schema) {
-            if (p.schema.items) {
+            if (p.schema.enum) {
+                propType = p.schema.enum.map((e) => (isNumber(e) ? e : `"${e}"`)).join(' | ');
+            }
+            else if (p.schema.items) {
                 propType = (0, utils_1.refClassName)(p.schema.items.$ref);
                 if (p.schema.type && p.schema.type === 'array') {
                     propType += '[]';

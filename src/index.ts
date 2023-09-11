@@ -82,7 +82,7 @@ export async function codegen(params: ISwaggerOptions) {
 
   if (true) {
     writeFile(options.outputDir || '', 'service-options.ts' || '', format(serviceHeaderSource, options))
-    apiSource += `import { IRequestOptions, IRequestConfig, IFetchConfig, getConfigs } from "./service-options";
+    apiSource += `import { IRequestConfig, IFetchConfig, getConfigs } from "./service-options";
     
     `
 

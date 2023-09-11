@@ -1,779 +1,3575 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Documentation for Peadkah API",
-    "title": "Peadkah API",
-    "termsOfService": "http://swagger.io/terms/",
-    "contact": {
-      "name": "API Support",
-      "url": "http://www.swagger.io/support",
-      "email": "support@swagger.io"
-    },
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "version": "1.0"
+      "description": "Documentation for Peadkah API",
+      "title": "Peadkah API",
+      "termsOfService": "http://swagger.io/terms/",
+      "contact": {
+          "name": "API Support",
+          "url": "http://www.swagger.io/support",
+          "email": "support@swagger.io"
+      },
+      "license": {
+          "name": "Apache 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      },
+      "version": "1.0"
   },
   "host": "localhost:3002",
   "paths": {
-    "/coupon/": {
-      "post": {
-        "tags": ["Coupon"],
-        "summary": "CreateCoupon CouponService",
-        "parameters": [
-          {
-            "description": "name",
-            "name": "name",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "description",
-            "name": "description",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "image",
-            "name": "image",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "couponValidIn",
-            "name": "couponValidIn",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "description": "userCouponValidIn",
-            "name": "userCouponValidIn",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "description": "status",
-            "name": "status",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "type",
-            "name": "type",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+      "/admin/change-info": {
+          "put": {
+              "tags": [
+                  "Admin"
+              ],
+              "summary": "EditAdmin AdminService",
+              "parameters": [
+                  {
+                      "description": "name",
+                      "name": "name",
+                      "in": "body",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.EditAdminResponse"
+                      }
+                  }
+              }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/main.CreateCouponResponse"
-            }
-          }
-        }
-      }
-    },
-    "/coupon/{id}": {
-      "put": {
-        "tags": ["Coupon"],
-        "summary": "UpdateCoupon CouponService",
-        "parameters": [
-          {
-            "type": "string",
-            "description": ":id",
-            "name": "id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "description": "name",
-            "name": "name",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "description",
-            "name": "description",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "image",
-            "name": "image",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "couponValidIn",
-            "name": "couponValidIn",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "description": "userCouponValidIn",
-            "name": "userCouponValidIn",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "description": "status",
-            "name": "status",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "type",
-            "name": "type",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/main.UpdateCouponResponse"
-            }
-          }
-        }
       },
-      "delete": {
-        "tags": ["Coupon"],
-        "summary": "DeleteCoupon CouponService",
-        "parameters": [
-          {
-            "type": "string",
-            "description": ":id",
-            "name": "id",
-            "in": "path",
-            "required": true
+      "/admin/forgot-pwd": {
+          "post": {
+              "tags": [
+                  "Admin"
+              ],
+              "summary": "ForgotPwd AdminService",
+              "parameters": [
+                  {
+                      "description": "email",
+                      "name": "email",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "201": {
+                      "description": "Created",
+                      "schema": {
+                          "$ref": "#/definitions/main.ForgotPwdResponse"
+                      }
+                  }
+              }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/main.DeleteCouponResponse"
-            }
-          }
-        }
-      }
-    },
-    "/coupon/{id}/histories": {
-      "get": {
-        "tags": ["Market"],
-        "summary": "GetBoughtCouponHistories MarketService",
-        "parameters": [
-          {
-            "type": "string",
-            "description": ":id",
-            "name": "id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "type": "integer",
-            "description": "page",
-            "name": "page",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "description": "pageSize",
-            "name": "pageSize",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/main.GetBoughtCouponHistoriesResponse"
-            }
-          }
-        }
-      }
-    },
-    "/location/": {
-      "get": {
-        "tags": ["Location"],
-        "summary": "Get LocationService",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "name",
-            "name": "name",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/main.GetLocationResponse"
-            }
-          }
-        }
       },
-      "post": {
-        "tags": ["Location"],
-        "summary": "Create LocationService",
-        "parameters": [
-          {
-            "description": "name",
-            "name": "name",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "address",
-            "name": "address",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "lat",
-            "name": "lat",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "description": "long",
-            "name": "long",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "description": "image",
-            "name": "image",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+      "/admin/my-profile": {
+          "get": {
+              "tags": [
+                  "Admin"
+              ],
+              "summary": "GetMyProfile AdminService",
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GetMyProfileResponse"
+                      }
+                  }
+              }
           }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created",
-            "schema": {
-              "$ref": "#/definitions/main.CreateLocationResponse"
-            }
-          }
-        }
-      }
-    },
-    "/location/{id}": {
-      "put": {
-        "tags": ["Location"],
-        "summary": "Update LocationService",
-        "parameters": [
-          {
-            "type": "string",
-            "description": ":id",
-            "name": "id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "description": "name",
-            "name": "name",
-            "in": "body",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "address",
-            "name": "address",
-            "in": "body",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "lat",
-            "name": "lat",
-            "in": "body",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "description": "long",
-            "name": "long",
-            "in": "body",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "description": "image",
-            "name": "image",
-            "in": "body",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/main.UpdateLocationResponse"
-            }
-          }
-        }
       },
-      "delete": {
-        "tags": ["Location"],
-        "summary": "Delete LocationService",
-        "parameters": [
-          {
-            "type": "string",
-            "description": ":id",
-            "name": "id",
-            "in": "path",
-            "required": true
+      "/admin/set-up": {
+          "put": {
+              "tags": [
+                  "Admin"
+              ],
+              "summary": "GenNewPassword AdminService",
+              "parameters": [
+                  {
+                      "description": "password",
+                      "name": "password",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "201": {
+                      "description": "Created",
+                      "schema": {
+                          "$ref": "#/definitions/main.GenNewPasswordResponse"
+                      }
+                  }
+              }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/main.DeleteLocationResponse"
-            }
+      },
+      "/admin/sign-in": {
+          "post": {
+              "tags": [
+                  "Admin"
+              ],
+              "summary": "SignIn AdminService",
+              "parameters": [
+                  {
+                      "description": "email",
+                      "name": "email",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "password",
+                      "name": "password",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "201": {
+                      "description": "Created",
+                      "schema": {
+                          "$ref": "#/definitions/main.SignInResponse"
+                      }
+                  }
+              }
           }
-        }
+      },
+      "/coupon/": {
+          "get": {
+              "tags": [
+                  "Coupon"
+              ],
+              "summary": "GetListCoupon CouponService",
+              "parameters": [
+                  {
+                      "type": "integer",
+                      "description": "page",
+                      "name": "page",
+                      "in": "query",
+                      "required": true
+                  },
+                  {
+                      "type": "integer",
+                      "description": "pageSize",
+                      "name": "pageSize",
+                      "in": "query",
+                      "required": true
+                  },
+                  {
+                      "type": "string",
+                      "description": "search",
+                      "name": "search",
+                      "in": "query"
+                  },
+                  {
+                      "enum": [
+                          "ON_GOING",
+                          "ENDED"
+                      ],
+                      "type": "string",
+                      "description": "status",
+                      "name": "status",
+                      "in": "query",
+                      "required": true
+                  },
+                  {
+                      "enum": [
+                          "category",
+                          "point",
+                          "remaining",
+                          "coupon_expired_at",
+                          "is_promotion"
+                      ],
+                      "type": "string",
+                      "description": "sortField",
+                      "name": "sortField",
+                      "in": "query"
+                  },
+                  {
+                      "enum": [
+                          "asc",
+                          "desc"
+                      ],
+                      "type": "string",
+                      "description": "sortOrder",
+                      "name": "sortOrder",
+                      "in": "query"
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GetListCouponResponse"
+                      }
+                  }
+              }
+          },
+          "post": {
+              "tags": [
+                  "Coupon"
+              ],
+              "summary": "CreateCoupon CouponService",
+              "parameters": [
+                  {
+                      "description": "name",
+                      "name": "name",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "description",
+                      "name": "description",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "image",
+                      "name": "image",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "couponExpiredAt",
+                      "name": "couponExpiredAt",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "integer"
+                      }
+                  },
+                  {
+                      "description": "couponStartAt",
+                      "name": "couponStartAt",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "integer"
+                      }
+                  },
+                  {
+                      "description": "userCouponValidIn",
+                      "name": "userCouponValidIn",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "integer"
+                      }
+                  },
+                  {
+                      "description": "total",
+                      "name": "total",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "integer"
+                      }
+                  },
+                  {
+                      "description": "status",
+                      "name": "status",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "enum": [
+                              "ON_GOING",
+                              "ENDED"
+                          ]
+                      }
+                  },
+                  {
+                      "description": "categoryId",
+                      "name": "categoryId",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "affiliateLink",
+                      "name": "affiliateLink",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "affiliateCode",
+                      "name": "affiliateCode",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.CreateCouponResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/coupon/update-promotion": {
+          "post": {
+              "tags": [
+                  "Coupon"
+              ],
+              "summary": "UpdateCouponPromotion CouponService",
+              "parameters": [
+                  {
+                      "description": "couponId",
+                      "name": "couponId",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "isPromotion",
+                      "name": "isPromotion",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "boolean"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.UpdateCouponPromotionResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/coupon/update-status": {
+          "post": {
+              "tags": [
+                  "Coupon"
+              ],
+              "summary": "UpdateCouponStatus CouponService",
+              "parameters": [
+                  {
+                      "description": "couponId",
+                      "name": "couponId",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "status",
+                      "name": "status",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "enum": [
+                              "ON_GOING",
+                              "ENDED"
+                          ]
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.UpdateCouponStatusResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/coupon/{id}": {
+          "get": {
+              "tags": [
+                  "Coupon"
+              ],
+              "summary": "GetById CouponService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":id",
+                      "name": "id",
+                      "in": "path",
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GetByIdResponse"
+                      }
+                  }
+              }
+          },
+          "put": {
+              "tags": [
+                  "Coupon"
+              ],
+              "summary": "UpdateCoupon CouponService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":id",
+                      "name": "id",
+                      "in": "path",
+                      "required": true
+                  },
+                  {
+                      "description": "name",
+                      "name": "name",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "description",
+                      "name": "description",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "image",
+                      "name": "image",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "couponExpiredAt",
+                      "name": "couponExpiredAt",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "integer"
+                      }
+                  },
+                  {
+                      "description": "couponStartAt",
+                      "name": "couponStartAt",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "integer"
+                      }
+                  },
+                  {
+                      "description": "userCouponValidIn",
+                      "name": "userCouponValidIn",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "integer"
+                      }
+                  },
+                  {
+                      "description": "total",
+                      "name": "total",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "integer"
+                      }
+                  },
+                  {
+                      "description": "status",
+                      "name": "status",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "enum": [
+                              "ON_GOING",
+                              "ENDED"
+                          ]
+                      }
+                  },
+                  {
+                      "description": "categoryId",
+                      "name": "categoryId",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "affiliateLink",
+                      "name": "affiliateLink",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "affiliateCode",
+                      "name": "affiliateCode",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.UpdateCouponResponse"
+                      }
+                  }
+              }
+          },
+          "delete": {
+              "tags": [
+                  "Coupon"
+              ],
+              "summary": "DeleteCoupon CouponService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":id",
+                      "name": "id",
+                      "in": "path",
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.DeleteCouponResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/coupon/{id}/histories": {
+          "get": {
+              "tags": [
+                  "Market"
+              ],
+              "summary": "GetBoughtCouponHistories MarketService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":id",
+                      "name": "id",
+                      "in": "path",
+                      "required": true
+                  },
+                  {
+                      "type": "integer",
+                      "description": "page",
+                      "name": "page",
+                      "in": "query",
+                      "required": true
+                  },
+                  {
+                      "type": "integer",
+                      "description": "pageSize",
+                      "name": "pageSize",
+                      "in": "query",
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GetBoughtCouponHistoriesResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/ggmap/find-place": {
+          "post": {
+              "tags": [
+                  "GgMap"
+              ],
+              "summary": "FindPlace GgMapService",
+              "parameters": [
+                  {
+                      "description": "input",
+                      "name": "input",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.FindPlaceResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/ggmap/find-route": {
+          "post": {
+              "tags": [
+                  "GgMap"
+              ],
+              "summary": "FindRoute GgMapService",
+              "parameters": [
+                  {
+                      "description": "origin",
+                      "name": "origin",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "destination",
+                      "name": "destination",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.FindRouteResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/ggmap/geocoding": {
+          "post": {
+              "tags": [
+                  "GgMap"
+              ],
+              "summary": "Geocoding GgMapService",
+              "parameters": [
+                  {
+                      "description": "latlong",
+                      "name": "latlong",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "$ref": "#/definitions/maps.LatLng"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GeocodingResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/ggmap/place-detail": {
+          "post": {
+              "tags": [
+                  "GgMap"
+              ],
+              "summary": "GetPlaceDetail GgMapService",
+              "parameters": [
+                  {
+                      "description": "placeId",
+                      "name": "placeId",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GetPlaceDetailResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/location/": {
+          "get": {
+              "tags": [
+                  "Location"
+              ],
+              "summary": "Get LocationService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": "country",
+                      "name": "country",
+                      "in": "query"
+                  },
+                  {
+                      "type": "string",
+                      "description": "city",
+                      "name": "city",
+                      "in": "query"
+                  },
+                  {
+                      "type": "string",
+                      "description": "name",
+                      "name": "name",
+                      "in": "query"
+                  },
+                  {
+                      "type": "integer",
+                      "description": "page",
+                      "name": "page",
+                      "in": "query",
+                      "required": true
+                  },
+                  {
+                      "type": "integer",
+                      "description": "pageSize",
+                      "name": "pageSize",
+                      "in": "query",
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GetLocationResponse"
+                      }
+                  }
+              }
+          },
+          "post": {
+              "tags": [
+                  "Location"
+              ],
+              "summary": "Create LocationService",
+              "parameters": [
+                  {
+                      "description": "country",
+                      "name": "country",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "city",
+                      "name": "city",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "name",
+                      "name": "name",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "address",
+                      "name": "address",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "lat",
+                      "name": "lat",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "number"
+                      }
+                  },
+                  {
+                      "description": "long",
+                      "name": "long",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "number"
+                      }
+                  },
+                  {
+                      "description": "placeId",
+                      "name": "placeId",
+                      "in": "body",
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "image",
+                      "name": "image",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "point",
+                      "name": "point",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "integer"
+                      }
+                  },
+                  {
+                      "description": "rewards",
+                      "name": "rewards",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "array",
+                          "items": {
+                              "$ref": "#/definitions/main.CreateRewardInput"
+                          }
+                      }
+                  }
+              ],
+              "responses": {
+                  "201": {
+                      "description": "Created",
+                      "schema": {
+                          "$ref": "#/definitions/main.CreateLocationResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/location/{id}": {
+          "get": {
+              "tags": [
+                  "Location"
+              ],
+              "summary": "GetDetail LocationService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":id",
+                      "name": "id",
+                      "in": "path",
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GetDetailResponse"
+                      }
+                  }
+              }
+          },
+          "put": {
+              "tags": [
+                  "Location"
+              ],
+              "summary": "Update LocationService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":id",
+                      "name": "id",
+                      "in": "path",
+                      "required": true
+                  },
+                  {
+                      "description": "country",
+                      "name": "country",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "city",
+                      "name": "city",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "name",
+                      "name": "name",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "address",
+                      "name": "address",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "lat",
+                      "name": "lat",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "number"
+                      }
+                  },
+                  {
+                      "description": "long",
+                      "name": "long",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "number"
+                      }
+                  },
+                  {
+                      "description": "placeId",
+                      "name": "placeId",
+                      "in": "body",
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "image",
+                      "name": "image",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "point",
+                      "name": "point",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "integer"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.UpdateLocationResponse"
+                      }
+                  }
+              }
+          },
+          "delete": {
+              "tags": [
+                  "Location"
+              ],
+              "summary": "Delete LocationService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":id",
+                      "name": "id",
+                      "in": "path",
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.DeleteLocationResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/location/{locationId}/reward/": {
+          "get": {
+              "tags": [
+                  "Reward"
+              ],
+              "summary": "Get RewardService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":locationId",
+                      "name": "locationId",
+                      "in": "path",
+                      "required": true
+                  },
+                  {
+                      "type": "integer",
+                      "description": "page",
+                      "name": "page",
+                      "in": "query",
+                      "required": true
+                  },
+                  {
+                      "type": "integer",
+                      "description": "pageSize",
+                      "name": "pageSize",
+                      "in": "query",
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GetRewardResponse"
+                      }
+                  }
+              }
+          },
+          "put": {
+              "tags": [
+                  "Reward"
+              ],
+              "summary": "ReplaceAll RewardService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":locationId",
+                      "name": "locationId",
+                      "in": "path",
+                      "required": true
+                  },
+                  {
+                      "description": "rewards",
+                      "name": "rewards",
+                      "in": "body",
+                      "schema": {
+                          "type": "array",
+                          "items": {
+                              "$ref": "#/definitions/main.CreateRewardInput"
+                          }
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.ReplaceAllResponse"
+                      }
+                  }
+              }
+          },
+          "post": {
+              "tags": [
+                  "Reward"
+              ],
+              "summary": "Create RewardService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":locationId",
+                      "name": "locationId",
+                      "in": "path",
+                      "required": true
+                  },
+                  {
+                      "description": "rewards",
+                      "name": "rewards",
+                      "in": "body",
+                      "schema": {
+                          "type": "array",
+                          "items": {
+                              "$ref": "#/definitions/main.CreateRewardInput"
+                          }
+                      }
+                  }
+              ],
+              "responses": {
+                  "201": {
+                      "description": "Created",
+                      "schema": {
+                          "$ref": "#/definitions/main.CreateRewardResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/location/{locationId}/reward/{id}": {
+          "delete": {
+              "tags": [
+                  "Reward"
+              ],
+              "summary": "Delete RewardService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":locationId",
+                      "name": "locationId",
+                      "in": "path",
+                      "required": true
+                  },
+                  {
+                      "type": "string",
+                      "description": ":id",
+                      "name": "id",
+                      "in": "path",
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.DeleteRewardResponse"
+                      }
+                  }
+              }
+          },
+          "patch": {
+              "tags": [
+                  "Reward"
+              ],
+              "summary": "Update RewardService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":locationId",
+                      "name": "locationId",
+                      "in": "path",
+                      "required": true
+                  },
+                  {
+                      "type": "string",
+                      "description": ":id",
+                      "name": "id",
+                      "in": "path",
+                      "required": true
+                  },
+                  {
+                      "description": "name",
+                      "name": "name",
+                      "in": "body",
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "image",
+                      "name": "image",
+                      "in": "body",
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "rate",
+                      "name": "rate",
+                      "in": "body",
+                      "schema": {
+                          "type": "number"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.UpdateRewardResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/marketplace/": {
+          "get": {
+              "tags": [
+                  "Market"
+              ],
+              "summary": "GetMarketListByCategory MarketService",
+              "parameters": [
+                  {
+                      "type": "integer",
+                      "description": "page",
+                      "name": "page",
+                      "in": "query",
+                      "required": true
+                  },
+                  {
+                      "type": "integer",
+                      "description": "pageSize",
+                      "name": "pageSize",
+                      "in": "query",
+                      "required": true
+                  },
+                  {
+                      "type": "string",
+                      "description": "search",
+                      "name": "search",
+                      "in": "query"
+                  },
+                  {
+                      "type": "string",
+                      "description": "sortField",
+                      "name": "sortField",
+                      "in": "query"
+                  },
+                  {
+                      "type": "string",
+                      "description": "sortOrder",
+                      "name": "sortOrder",
+                      "in": "query"
+                  },
+                  {
+                      "type": "string",
+                      "description": "category",
+                      "name": "category",
+                      "in": "query",
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GetMarketListByCategoryResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/marketplace/buy-coupon": {
+          "post": {
+              "tags": [
+                  "Market"
+              ],
+              "summary": "UserBuyCoupon MarketService",
+              "parameters": [
+                  {
+                      "description": "userId",
+                      "name": "userId",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "couponId",
+                      "name": "couponId",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "point",
+                      "name": "point",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "integer"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.UserBuyCouponResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/s3/get-signed-url": {
+          "post": {
+              "tags": [
+                  "S3"
+              ],
+              "summary": "GetSignedURL S3Service",
+              "parameters": [
+                  {
+                      "description": "contentType",
+                      "name": "contentType",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GetSignedURLResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/superadmin/add-new-admin": {
+          "post": {
+              "tags": [
+                  "Admin"
+              ],
+              "summary": "AddNewAdmin AdminService",
+              "parameters": [
+                  {
+                      "description": "email",
+                      "name": "email",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "description": "role",
+                      "name": "role",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "enum": [
+                              "SuperAdmin",
+                              "Admin"
+                          ]
+                      }
+                  }
+              ],
+              "responses": {
+                  "201": {
+                      "description": "Created",
+                      "schema": {
+                          "$ref": "#/definitions/main.AddNewAdminResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/superadmin/get-list-admin": {
+          "get": {
+              "tags": [
+                  "Admin"
+              ],
+              "summary": "GetAdmin AdminService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": "name",
+                      "name": "name",
+                      "in": "query"
+                  },
+                  {
+                      "type": "string",
+                      "description": "email",
+                      "name": "email",
+                      "in": "query"
+                  },
+                  {
+                      "type": "integer",
+                      "description": "page",
+                      "name": "page",
+                      "in": "query",
+                      "required": true
+                  },
+                  {
+                      "type": "integer",
+                      "description": "pageSize",
+                      "name": "pageSize",
+                      "in": "query",
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GetAdminResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/superadmin/remove-admin/{id}": {
+          "delete": {
+              "tags": [
+                  "Admin"
+              ],
+              "summary": "RemoveAdmin AdminService",
+              "parameters": [
+                  {
+                      "type": "string",
+                      "description": ":id",
+                      "name": "id",
+                      "in": "path",
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.RemoveAdminResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/user/": {
+          "get": {
+              "tags": [
+                  "User"
+              ],
+              "summary": "Get UserService",
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/main.GetUserResponse"
+                      }
+                  }
+              }
+          }
       }
-    },
-    "/marketplace/": {
-      "get": {
-        "tags": ["Market"],
-        "summary": "GetMarketListByType MarketService",
-        "parameters": [
-          {
-            "type": "integer",
-            "description": "page",
-            "name": "page",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "description": "pageSize",
-            "name": "pageSize",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "description": "search",
-            "name": "search",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "description": "sortField",
-            "name": "sortField",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "description": "sortOrder",
-            "name": "sortOrder",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "description": "type",
-            "name": "type",
-            "in": "query",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/main.GetMarketListByTypeResponse"
-            }
-          }
-        }
-      }
-    },
-    "/marketplace/buy-coupon": {
-      "post": {
-        "tags": ["Market"],
-        "summary": "UserBuyCoupon MarketService",
-        "parameters": [
-          {
-            "description": "userId",
-            "name": "userId",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "couponId",
-            "name": "couponId",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "point",
-            "name": "point",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/main.UserBuyCouponResponse"
-            }
-          }
-        }
-      }
-    },
-    "/user": {
-      "get": {
-        "tags": ["User"],
-        "summary": "Get UserService",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/main.GetUserResponse"
-            }
-          }
-        }
-      }
-    }
   },
   "definitions": {
-    "main.CreateCouponResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "string"
-        }
-      }
-    },
-    "main.CreateLocationResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "string"
-        },
-        "success": {
-          "type": "boolean"
-        }
-      }
-    },
-    "main.DeleteCouponResponse": {
-      "type": "object"
-    },
-    "main.DeleteLocationResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "string"
-        },
-        "success": {
-          "type": "boolean"
-        }
-      }
-    },
-    "main.GetBoughtCouponHistoriesResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/model.BoughtCouponHistory"
+      "main.AddNewAdminResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.Admin"
+              },
+              "success": {
+                  "type": "boolean"
+              }
           }
-        },
-        "total": {
-          "type": "integer"
-        }
-      }
-    },
-    "main.GetLocationResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/model.Location"
+      },
+      "main.Admin": {
+          "type": "object",
+          "required": [
+              "id",
+              "role"
+          ],
+          "properties": {
+              "active": {
+                  "type": "boolean"
+              },
+              "createdAt": {
+                  "type": "string"
+              },
+              "email": {
+                  "type": "string"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "password": {
+                  "type": "string"
+              },
+              "role": {
+                  "$ref": "#/definitions/main.Role"
+              },
+              "updatedAt": {
+                  "type": "string"
+              }
           }
-        },
-        "success": {
-          "type": "boolean"
-        }
-      }
-    },
-    "main.GetMarketListByTypeResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/model.Coupon"
+      },
+      "main.BoughtCouponHistory": {
+          "type": "object",
+          "required": [
+              "createdAt",
+              "id",
+              "point"
+          ],
+          "properties": {
+              "coupon": {
+                  "$ref": "#/definitions/main.Coupon"
+              },
+              "couponId": {
+                  "type": "string"
+              },
+              "createdAt": {
+                  "type": "string"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "point": {
+                  "type": "integer"
+              },
+              "user": {
+                  "$ref": "#/definitions/main.User"
+              },
+              "userId": {
+                  "type": "string"
+              }
           }
-        },
-        "total": {
-          "type": "integer"
-        }
-      }
-    },
-    "main.GetUserResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "string"
-        },
-        "success": {
-          "type": "boolean"
-        }
-      }
-    },
-    "main.UpdateCouponResponse": {
-      "type": "object"
-    },
-    "main.UpdateLocationResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "string"
-        },
-        "success": {
-          "type": "boolean"
-        }
-      }
-    },
-    "main.UserBuyCouponResponse": {
-      "type": "object"
-    },
-    "model.BoughtCouponHistory": {
-      "type": "object",
-      "properties": {
-        "coupon": {
-          "$ref": "#/definitions/model.Coupon"
-        },
-        "couponId": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "point": {
-          "type": "integer"
-        },
-        "user": {
-          "$ref": "#/definitions/model.User"
-        },
-        "userId": {
-          "type": "string"
-        }
-      }
-    },
-    "model.Coupon": {
-      "type": "object",
-      "properties": {
-        "couponValidIn": {
-          "type": "integer"
-        },
-        "createdAt": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "image": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "status": {
-          "$ref": "#/definitions/model.CouponStatus"
-        },
-        "type": {
-          "$ref": "#/definitions/model.CouponType"
-        },
-        "updatedAt": {
-          "type": "string"
-        },
-        "userCoupon": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/model.UserCoupon"
+      },
+      "main.Category": {
+          "type": "object",
+          "required": [
+              "id"
+          ],
+          "properties": {
+              "id": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              }
           }
-        },
-        "userCouponValidIn": {
-          "type": "integer"
-        }
-      }
-    },
-    "model.CouponStatus": {
-      "type": "string",
-      "enum": ["ON_GOING", "ENDED"],
-      "x-enum-varnames": ["COUPON_ON_GOING", "COUPON_ENDED"]
-    },
-    "model.CouponType": {
-      "type": "string",
-      "enum": ["NFT", "COUPON"],
-      "x-enum-varnames": ["NFT", "COUPON"]
-    },
-    "model.Location": {
-      "type": "object",
-      "properties": {
-        "address": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "image": {
-          "type": "string"
-        },
-        "lat": {
-          "type": "number"
-        },
-        "long": {
-          "type": "number"
-        },
-        "name": {
-          "type": "string"
-        },
-        "updatedAt": {
-          "type": "string"
-        }
-      }
-    },
-    "model.User": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "userCoupon": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/model.UserCoupon"
+      },
+      "main.CheckInHistory": {
+          "type": "object",
+          "required": [
+              "createdAt",
+              "id",
+              "updatedAt"
+          ],
+          "properties": {
+              "createdAt": {
+                  "type": "string"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "locationId": {
+                  "type": "string"
+              },
+              "updatedAt": {
+                  "type": "string"
+              },
+              "userId": {
+                  "type": "string"
+              }
           }
-        }
+      },
+      "main.Coupon": {
+          "type": "object",
+          "required": [
+              "affiliateCode",
+              "affiliateLink",
+              "categoryId",
+              "couponExpiredAt",
+              "couponStartAt",
+              "createdAt",
+              "description",
+              "id",
+              "image",
+              "name",
+              "remaining",
+              "status",
+              "total",
+              "updatedAt",
+              "userCouponValidIn"
+          ],
+          "properties": {
+              "affiliateCode": {
+                  "type": "string"
+              },
+              "affiliateLink": {
+                  "type": "string"
+              },
+              "category": {
+                  "$ref": "#/definitions/main.Category"
+              },
+              "categoryId": {
+                  "type": "string"
+              },
+              "couponExpiredAt": {
+                  "type": "integer"
+              },
+              "couponStartAt": {
+                  "type": "integer"
+              },
+              "createdAt": {
+                  "type": "string"
+              },
+              "description": {
+                  "type": "string"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "image": {
+                  "type": "string"
+              },
+              "isPromotion": {
+                  "type": "boolean"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "remaining": {
+                  "type": "integer"
+              },
+              "status": {
+                  "$ref": "#/definitions/main.CouponStatus"
+              },
+              "total": {
+                  "type": "integer"
+              },
+              "updatedAt": {
+                  "type": "string"
+              },
+              "userCouponValidIn": {
+                  "type": "integer"
+              },
+              "userCoupons": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/main.UserCoupon"
+                  }
+              }
+          }
+      },
+      "main.CouponStatus": {
+          "type": "string",
+          "enum": [
+              "ON_GOING",
+              "ENDED"
+          ],
+          "x-enum-varnames": [
+              "COUPON_ON_GOING_ENUM",
+              "COUPON_ENDED_ENUM"
+          ]
+      },
+      "main.CreateCouponResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.CreateLocationResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.Location"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.CreateRewardInput": {
+          "type": "object",
+          "required": [
+              "image",
+              "name",
+              "rate"
+          ],
+          "properties": {
+              "image": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "rate": {
+                  "type": "number"
+              }
+          }
+      },
+      "main.CreateRewardResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/main.Reward"
+                  }
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.DeleteCouponResponse": {
+          "type": "object"
+      },
+      "main.DeleteLocationResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "type": "string"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.DeleteRewardResponse": {
+          "type": "object",
+          "properties": {
+              "message": {
+                  "type": "string"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.EditAdminData": {
+          "type": "object",
+          "properties": {
+              "active": {
+                  "type": "string"
+              },
+              "email": {
+                  "type": "string"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "role": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.EditAdminResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.EditAdminData"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.FindPlaceResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/maps.FindPlaceFromTextResponse"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.FindRouteGgMapData": {
+          "type": "object",
+          "properties": {
+              "geocodedWaypoints": {
+                  "$ref": "#/definitions/maps.Route"
+              },
+              "routes": {
+                  "$ref": "#/definitions/maps.Route"
+              }
+          }
+      },
+      "main.FindRouteResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.FindRouteGgMapData"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.ForgotPwdResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.Admin"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.GenNewPasswordResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.Admin"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.GeocodingResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/maps.GeocodingResult"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.GetAdminData": {
+          "type": "object",
+          "properties": {
+              "admins": {
+                  "$ref": "#/definitions/main.adminListDTO"
+              },
+              "page": {
+                  "type": "string"
+              },
+              "pageSize": {
+                  "type": "string"
+              },
+              "total": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.GetAdminResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.GetAdminData"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.GetBoughtCouponHistoriesResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/main.BoughtCouponHistory"
+                  }
+              },
+              "total": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.GetByIdResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.GetDetailResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.locationDetailDTO"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.GetListCouponResponse": {
+          "type": "object",
+          "properties": {
+              "coupons": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/main.Coupon"
+                  }
+              },
+              "total": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.GetLocationData": {
+          "type": "object",
+          "properties": {
+              "locations": {
+                  "$ref": "#/definitions/main.locationListDTO"
+              },
+              "page": {
+                  "type": "string"
+              },
+              "pageSize": {
+                  "type": "string"
+              },
+              "total": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.GetLocationResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.GetLocationData"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.GetMarketListByCategoryResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/main.Coupon"
+                  }
+              },
+              "total": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.GetMyProfileAdminData": {
+          "type": "object",
+          "properties": {
+              "active": {
+                  "type": "string"
+              },
+              "email": {
+                  "type": "string"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "role": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.GetMyProfileResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.GetMyProfileAdminData"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.GetPlaceDetailResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/maps.PlaceDetailsResult"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.GetRewardData": {
+          "type": "object",
+          "properties": {
+              "page": {
+                  "type": "string"
+              },
+              "pageSize": {
+                  "type": "string"
+              },
+              "rewards": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/main.Reward"
+                  }
+              },
+              "total": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.GetRewardResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.GetRewardData"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.GetSignedURLResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.GetSignedURLS3Data"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.GetSignedURLS3Data": {
+          "type": "object",
+          "properties": {
+              "cdn": {
+                  "type": "string"
+              },
+              "key": {
+                  "type": "string"
+              },
+              "url": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.GetUserResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "type": "string"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.Location": {
+          "type": "object",
+          "required": [
+              "address",
+              "createdAt",
+              "id",
+              "image",
+              "lat",
+              "long",
+              "name",
+              "point",
+              "updatedAt"
+          ],
+          "properties": {
+              "address": {
+                  "type": "string"
+              },
+              "checkInHistory": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/main.CheckInHistory"
+                  }
+              },
+              "city": {
+                  "type": "string"
+              },
+              "country": {
+                  "type": "string"
+              },
+              "createdAt": {
+                  "type": "string"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "image": {
+                  "type": "string"
+              },
+              "lat": {
+                  "type": "number"
+              },
+              "long": {
+                  "type": "number"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "placeId": {
+                  "type": "string"
+              },
+              "point": {
+                  "type": "integer"
+              },
+              "rewards": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/main.Reward"
+                  }
+              },
+              "updatedAt": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.RemoveAdminResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "type": "string"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.ReplaceAllResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/main.Reward"
+                  }
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.Reward": {
+          "type": "object",
+          "required": [
+              "createdAt",
+              "id",
+              "image",
+              "locationID",
+              "name",
+              "rate",
+              "updatedAt"
+          ],
+          "properties": {
+              "createdAt": {
+                  "type": "string"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "image": {
+                  "type": "string"
+              },
+              "locationID": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "rate": {
+                  "type": "number"
+              },
+              "updatedAt": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.Role": {
+          "type": "string",
+          "enum": [
+              "SuperAdmin",
+              "Admin"
+          ],
+          "x-enum-varnames": [
+              "SUPER_ADMIN_ENUM",
+              "ADMIN_ENUM"
+          ]
+      },
+      "main.SignInAdminData": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "type": "string"
+              },
+              "token": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.SignInResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "$ref": "#/definitions/main.SignInAdminData"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.UpdateCouponPromotionResponse": {
+          "type": "object"
+      },
+      "main.UpdateCouponResponse": {
+          "type": "object"
+      },
+      "main.UpdateCouponStatusResponse": {
+          "type": "object"
+      },
+      "main.UpdateLocationResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "type": "string"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.UpdateRewardResponse": {
+          "type": "object",
+          "properties": {
+              "data": {
+                  "type": "string"
+              },
+              "success": {
+                  "type": "boolean"
+              }
+          }
+      },
+      "main.User": {
+          "type": "object",
+          "required": [
+              "id"
+          ],
+          "properties": {
+              "checkinHistory": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/main.CheckInHistory"
+                  }
+              },
+              "createdAt": {
+                  "type": "string"
+              },
+              "email": {
+                  "type": "string"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "password": {
+                  "type": "string"
+              },
+              "updatedAt": {
+                  "type": "string"
+              },
+              "userCoupon": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/main.UserCoupon"
+                  }
+              }
+          }
+      },
+      "main.UserBuyCouponResponse": {
+          "type": "object"
+      },
+      "main.UserCoupon": {
+          "type": "object",
+          "required": [
+              "id",
+              "status"
+          ],
+          "properties": {
+              "coupon": {
+                  "$ref": "#/definitions/main.Coupon"
+              },
+              "couponId": {
+                  "type": "string"
+              },
+              "createdAt": {
+                  "type": "string"
+              },
+              "expiredAt": {
+                  "type": "integer"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "status": {
+                  "$ref": "#/definitions/main.UserCouponStatus"
+              },
+              "updatedAt": {
+                  "type": "string"
+              },
+              "user": {
+                  "$ref": "#/definitions/main.User"
+              },
+              "userId": {
+                  "type": "string"
+              }
+          }
+      },
+      "main.UserCouponStatus": {
+          "type": "string",
+          "enum": [
+              "COUPON_AVAILABLE",
+              "COUPON_USED"
+          ],
+          "x-enum-varnames": [
+              "COUPON_AVAILABLE_ENUM",
+              "COUPON_USED_ENUM"
+          ]
+      },
+      "main.adminListDTO": {
+          "type": "object",
+          "required": [
+              "id"
+          ],
+          "properties": {
+              "active": {
+                  "type": "boolean"
+              },
+              "email": {
+                  "type": "string"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "role": {
+                  "$ref": "#/definitions/main.Role"
+              }
+          }
+      },
+      "main.locationDetailDTO": {
+          "type": "object",
+          "required": [
+              "address",
+              "id",
+              "name"
+          ],
+          "properties": {
+              "address": {
+                  "type": "string"
+              },
+              "city": {
+                  "type": "string"
+              },
+              "country": {
+                  "type": "string"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "image": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "placeId": {
+                  "type": "string"
+              },
+              "rewards": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/main.locationDetailDTORewards"
+                  }
+              }
+          }
+      },
+      "main.locationDetailDTORewards": {
+          "type": "object",
+          "required": [
+              "image",
+              "name",
+              "rate"
+          ],
+          "properties": {
+              "image": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "rate": {
+                  "type": "number"
+              }
+          }
+      },
+      "main.locationListDTO": {
+          "type": "object",
+          "required": [
+              "address",
+              "id",
+              "name",
+              "placeId"
+          ],
+          "properties": {
+              "address": {
+                  "type": "string"
+              },
+              "city": {
+                  "type": "string"
+              },
+              "country": {
+                  "type": "string"
+              },
+              "id": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "placeId": {
+                  "type": "string"
+              }
+          }
+      },
+      "maps.AddressComponent": {
+          "type": "object",
+          "properties": {
+              "long_name": {
+                  "type": "string"
+              },
+              "short_name": {
+                  "type": "string"
+              },
+              "types": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              }
+          }
+      },
+      "maps.AddressGeometry": {
+          "type": "object",
+          "properties": {
+              "bounds": {
+                  "$ref": "#/definitions/maps.LatLngBounds"
+              },
+              "location": {
+                  "$ref": "#/definitions/maps.LatLng"
+              },
+              "location_type": {
+                  "type": "string"
+              },
+              "types": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              },
+              "viewport": {
+                  "$ref": "#/definitions/maps.LatLngBounds"
+              }
+          }
+      },
+      "maps.AddressPlusCode": {
+          "type": "object",
+          "properties": {
+              "compound_code": {
+                  "description": "CompoundCode is a 6 character or longer local code with an explicit location (CWC8+R9, Mountain View, CA, USA).",
+                  "type": "string"
+              },
+              "global_code": {
+                  "description": "GlobalCode is a 4 character area code and 6 character or longer local code (849VCWC8+R9).",
+                  "type": "string"
+              }
+          }
+      },
+      "maps.Distance": {
+          "type": "object",
+          "properties": {
+              "text": {
+                  "description": "HumanReadable is the human friendly distance. This is rounded and in an\nappropriate unit for the request. The units can be overriden with a request\nparameter.",
+                  "type": "string"
+              },
+              "value": {
+                  "description": "Meters is the numeric distance, always in meters. This is intended to be used\nonly in algorithmic situations, e.g. sorting results by some user specified\nmetric.",
+                  "type": "integer"
+              }
+          }
+      },
+      "maps.Fare": {
+          "type": "object",
+          "properties": {
+              "currency": {
+                  "description": "Currency is an ISO 4217 currency code indicating the currency that the amount\nis expressed in.",
+                  "type": "string"
+              },
+              "text": {
+                  "description": "Text is the total fare amount, formatted in the requested language.",
+                  "type": "string"
+              },
+              "value": {
+                  "description": "Value is the total fare amount, in the currency specified above.",
+                  "type": "number"
+              }
+          }
+      },
+      "maps.FindPlaceFromTextResponse": {
+          "type": "object",
+          "properties": {
+              "candidates": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.PlacesSearchResult"
+                  }
+              },
+              "htmlattributions": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              }
+          }
+      },
+      "maps.GeocodingResult": {
+          "type": "object",
+          "properties": {
+              "address_components": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.AddressComponent"
+                  }
+              },
+              "formatted_address": {
+                  "type": "string"
+              },
+              "geometry": {
+                  "$ref": "#/definitions/maps.AddressGeometry"
+              },
+              "partial_match": {
+                  "description": "PartialMatch indicates that the geocoder did not return an exact match for\nthe original request, though it was able to match part of the requested address.\nYou may wish to examine the original request for misspellings and/or an incomplete address.\nPartial matches most often occur for street addresses that do not exist within the\nlocality you pass in the request.\nPartial matches may also be returned when a request matches two or more locations in\nthe same locality. For example, \"21 Henr St, Bristol, UK\" will return a partial match\nfor both Henry Street and Henrietta Street.\nNote that if a request includes a misspelled address component, the geocoding service may\nsuggest an alternative address.\nSuggestions triggered in this way will also be marked as a partial match.",
+                  "type": "boolean"
+              },
+              "place_id": {
+                  "type": "string"
+              },
+              "plus_code": {
+                  "description": "PlusCode (see https://en.wikipedia.org/wiki/Open_Location_Code and https://plus.codes/)\nis an encoded location reference, derived from latitude and longitude coordinates,\nthat represents an area: 1/8000th of a degree by 1/8000th of a degree (about 14m x 14m at the equator)\nor smaller.\n\nPlus codes can be used as a replacement for street addresses in places where they do not exist\n(where buildings are not numbered or streets are not named).\nThe plus code is formatted as a global code and a compound code:\nTypically, both the global code and compound code are returned.\nHowever, if the result is in a remote location (for example, an ocean or desert)\nonly the global code may be returned.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.AddressPlusCode"
+                      }
+                  ]
+              },
+              "types": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              }
+          }
+      },
+      "maps.LatLng": {
+          "type": "object",
+          "properties": {
+              "lat": {
+                  "type": "number"
+              },
+              "lng": {
+                  "type": "number"
+              }
+          }
+      },
+      "maps.LatLngBounds": {
+          "type": "object",
+          "properties": {
+              "northeast": {
+                  "$ref": "#/definitions/maps.LatLng"
+              },
+              "southwest": {
+                  "$ref": "#/definitions/maps.LatLng"
+              }
+          }
+      },
+      "maps.Leg": {
+          "type": "object",
+          "properties": {
+              "arrival_time": {
+                  "description": "ArrivalTime contains the estimated time of arrival for this leg. This property\nis only returned for transit directions.",
+                  "type": "string"
+              },
+              "departure_time": {
+                  "description": "DepartureTime contains the estimated time of departure for this leg. This\nproperty is only returned for transit directions.",
+                  "type": "string"
+              },
+              "distance": {
+                  "description": "Distance indicates the total distance covered by this leg.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.Distance"
+                      }
+                  ]
+              },
+              "duration": {
+                  "description": "Duration indicates total time required for this leg.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/time.Duration"
+                      }
+                  ]
+              },
+              "duration_in_traffic": {
+                  "description": "DurationInTraffic indicates the total duration of this leg. This value is an\nestimate of the time in traffic based on current and historical traffic\nconditions.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/time.Duration"
+                      }
+                  ]
+              },
+              "end_address": {
+                  "description": "EndAddress contains the human-readable address (typically a street address)\nreflecting the end location of this leg.",
+                  "type": "string"
+              },
+              "end_location": {
+                  "description": "EndLocation contains the latitude/longitude coordinates of the destination of\nthis leg.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.LatLng"
+                      }
+                  ]
+              },
+              "start_address": {
+                  "description": "StartAddress contains the human-readable address (typically a street address)\nreflecting the start location of this leg.",
+                  "type": "string"
+              },
+              "start_location": {
+                  "description": "StartLocation contains the latitude/longitude coordinates of the origin of this\nleg.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.LatLng"
+                      }
+                  ]
+              },
+              "steps": {
+                  "description": "Steps contains an array of steps denoting information about each separate step\nof the leg of the journey.",
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.Step"
+                  }
+              },
+              "via_waypoint": {
+                  "description": "ViaWaypoint contains info about points through which the route was laid.",
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.ViaWaypoint"
+                  }
+              }
+          }
+      },
+      "maps.OpeningHours": {
+          "type": "object",
+          "properties": {
+              "open_now": {
+                  "description": "OpenNow is a boolean value indicating if the place is open at the current time.\nPlease note, this field will be null if it isn't present in the response.",
+                  "type": "boolean"
+              },
+              "periods": {
+                  "description": "Periods is an array of opening periods covering seven days, starting from Sunday,\nin chronological order.",
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.OpeningHoursPeriod"
+                  }
+              },
+              "permanently_closed": {
+                  "description": "PermanentlyClosed indicates that the place has permanently shut down. Please\nnote, this field will be null if it isn't present in the response.",
+                  "type": "boolean"
+              },
+              "weekday_text": {
+                  "description": "weekdayText is an array of seven strings representing the formatted opening hours\nfor each day of the week, for example \"Monday: 8:30 am – 5:30 pm\".",
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              }
+          }
+      },
+      "maps.OpeningHoursOpenClose": {
+          "type": "object",
+          "properties": {
+              "day": {
+                  "description": "Day is a number from 0–6, corresponding to the days of the week, starting on\nSunday. For example, 2 means Tuesday.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/time.Weekday"
+                      }
+                  ]
+              },
+              "time": {
+                  "description": "Time contains a time of day in 24-hour hhmm format. Values are in the range\n0000–2359. The time will be reported in the place’s time zone.",
+                  "type": "string"
+              }
+          }
+      },
+      "maps.OpeningHoursPeriod": {
+          "type": "object",
+          "properties": {
+              "close": {
+                  "description": "Close is when the place closes.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.OpeningHoursOpenClose"
+                      }
+                  ]
+              },
+              "open": {
+                  "description": "Open is when the place opens.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.OpeningHoursOpenClose"
+                      }
+                  ]
+              }
+          }
+      },
+      "maps.Photo": {
+          "type": "object",
+          "properties": {
+              "height": {
+                  "description": "Height is the maximum height of the image.",
+                  "type": "integer"
+              },
+              "html_attributions": {
+                  "description": "htmlAttributions contains any required attributions.",
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              },
+              "photo_reference": {
+                  "description": "PhotoReference is used to identify the photo when you perform a Photo request.",
+                  "type": "string"
+              },
+              "width": {
+                  "description": "Width is the maximum width of the image.",
+                  "type": "integer"
+              }
+          }
+      },
+      "maps.PlaceDetailsResult": {
+          "type": "object",
+          "properties": {
+              "address_components": {
+                  "description": "AddressComponents is an array of separate address components used to compose a\ngiven address.",
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.AddressComponent"
+                  }
+              },
+              "adr_address": {
+                  "description": "AdrAddress is the address in the \"adr\" microformat.",
+                  "type": "string"
+              },
+              "business_status": {
+                  "description": "BusinessStatus is a string indicating the operational status of the\nplace, if it is a business.",
+                  "type": "string"
+              },
+              "curbside_pickup": {
+                  "description": "CurbsidePickup specifies if the business supports curbside pickup.",
+                  "type": "boolean"
+              },
+              "current_opening_hours": {
+                  "description": "CurrentOpeningHours may contain the hours of operation for the next seven\ndays (including today). The time period starts at midnight on the date of\nthe request and ends at 11:59 pm six days later. This field includes the\nspecial_days subfield of all hours, set for dates that have exceptional\nhours.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.OpeningHours"
+                      }
+                  ]
+              },
+              "delivery": {
+                  "description": "Delivery specifies if the business supports delivery.",
+                  "type": "boolean"
+              },
+              "dine_in": {
+                  "description": "DineIn specifies if the business supports seating options.",
+                  "type": "boolean"
+              },
+              "editorial_summary": {
+                  "description": "EditorialSummary contains a summary of the place. A summary is comprised\nof a textual overview, and also includes the language code for these if\napplicable. Summary text must be presented as-is and can not be modified\nor altered.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.PlaceEditorialSummary"
+                      }
+                  ]
+              },
+              "formatted_address": {
+                  "description": "FormattedAddress is the human-readable address of this place.",
+                  "type": "string"
+              },
+              "formatted_phone_number": {
+                  "description": "FormattedPhoneNumber contains the place's phone number in its local format. For\nexample, the formatted_phone_number for Google's Sydney, Australia office is\n(02) 9374 4000.",
+                  "type": "string"
+              },
+              "geometry": {
+                  "description": "Geometry contains geometry information about the result, generally including the\nlocation (geocode) of the place and (optionally) the viewport identifying its\ngeneral area of coverage.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.AddressGeometry"
+                      }
+                  ]
+              },
+              "html_attributions": {
+                  "description": "HTMLAttributions contain a set of attributions about this listing which must be\ndisplayed to the user.",
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              },
+              "icon": {
+                  "description": "Icon contains the URL of a recommended icon which may be displayed to the user\nwhen indicating this result.",
+                  "type": "string"
+              },
+              "international_phone_number": {
+                  "description": "InternationalPhoneNumber contains the place's phone number in international\nformat. International format includes the country code, and is prefixed with the\nplus (+) sign. For example, the international_phone_number for Google's Sydney,\nAustralia office is +61 2 9374 4000.",
+                  "type": "string"
+              },
+              "name": {
+                  "description": "Name contains the human-readable name for the returned result. For establishment\nresults, this is usually the business name.",
+                  "type": "string"
+              },
+              "opening_hours": {
+                  "description": "OpeningHours may contain whether the place is open now or not.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.OpeningHours"
+                      }
+                  ]
+              },
+              "permanently_closed": {
+                  "description": "PermanentlyClosed is a boolean flag indicating whether the place has permanently\nshut down (value true). If the place is not permanently closed, the flag is\nabsent from the response.\n\nDeprecated: Use BusinessStatus instead.",
+                  "type": "boolean"
+              },
+              "photos": {
+                  "description": "Photos is an array of photo objects, each containing a reference to an image.",
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.Photo"
+                  }
+              },
+              "place_id": {
+                  "description": "PlaceID is a textual identifier that uniquely identifies a place.",
+                  "type": "string"
+              },
+              "price_level": {
+                  "description": "PriceLevel is the price level of the place, on a scale of 0 to 4.",
+                  "type": "integer"
+              },
+              "rating": {
+                  "description": "Rating contains the place's rating, from 1.0 to 5.0, based on aggregated user\nreviews.",
+                  "type": "number"
+              },
+              "reservable": {
+                  "description": "Reservable specifies if the place supports reservations.",
+                  "type": "boolean"
+              },
+              "reviews": {
+                  "description": "Reviews is an array of up to five reviews. If a language parameter was specified\nin the Place Details request, the Places Service will bias the results to prefer\nreviews written in that language.",
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.PlaceReview"
+                  }
+              },
+              "secondary_opening_hours": {
+                  "description": "SecondaryOpeningHours may contain an array of entries for the next seven\ndays including information about secondary hours of a business. Secondary\nhours are different from a business's main hours. For example, a\nrestaurant can specify drive through hours or delivery hours as its\nsecondary hours. This field populates the type subfield, which draws from\na predefined list of opening hours types (such as DRIVE_THROUGH, PICKUP,\nor TAKEOUT) based on the types of the place. This field includes the\nspecial_days subfield of all hours, set for dates that have exceptional\nhours.",
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.OpeningHours"
+                  }
+              },
+              "serves_beer": {
+                  "description": "ServesBeer specifies if the place serves beer.",
+                  "type": "boolean"
+              },
+              "serves_breakfast": {
+                  "description": "ServesBreakfast specifies if the place serves breakfast.",
+                  "type": "boolean"
+              },
+              "serves_brunch": {
+                  "description": "ServesBrunch specifies if the place serves brunch.",
+                  "type": "boolean"
+              },
+              "serves_dinner": {
+                  "description": "ServesDinner specifies if the place serves dinner.",
+                  "type": "boolean"
+              },
+              "serves_lunch": {
+                  "description": "ServesLunch specifies if the place serves lunch.",
+                  "type": "boolean"
+              },
+              "serves_vegetarian_food": {
+                  "description": "ServesVegetarianFood specifies if the place serves vegetarian food.",
+                  "type": "boolean"
+              },
+              "serves_wine": {
+                  "description": "ServesWine specifies if the place serves wine.",
+                  "type": "boolean"
+              },
+              "takeout": {
+                  "description": "Takeout specifies if the business supports takeout.",
+                  "type": "boolean"
+              },
+              "types": {
+                  "description": "Types contains an array of feature types describing the given result.",
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              },
+              "url": {
+                  "description": "URL contains the URL of the official Google page for this place. This will be the\nestablishment's Google+ page if the Google+ page exists, otherwise it will be the\nGoogle-owned page that contains the best available information about the place.\nApplications must link to or embed this page on any screen that shows detailed\nresults about the place to the user.",
+                  "type": "string"
+              },
+              "user_ratings_total": {
+                  "description": "UserRatingsTotal contains total number of the place's ratings",
+                  "type": "integer"
+              },
+              "utc_offset": {
+                  "description": "UTCOffset contains the number of minutes this place’s current timezone is offset\nfrom UTC. For example, for places in Sydney, Australia during daylight saving\ntime this would be 660 (+11 hours from UTC), and for places in California outside\nof daylight saving time this would be -480 (-8 hours from UTC).",
+                  "type": "integer"
+              },
+              "vicinity": {
+                  "description": "Vicinity contains a feature name of a nearby location.",
+                  "type": "string"
+              },
+              "website": {
+                  "description": "Website lists the authoritative website for this place, such as a business'\nhomepage.",
+                  "type": "string"
+              },
+              "wheelchair_accessible_entrance": {
+                  "description": "WheelchairAccessibleEntrance specifies if the place has an entrance that\nis wheelchair-accessible.",
+                  "type": "boolean"
+              }
+          }
+      },
+      "maps.PlaceEditorialSummary": {
+          "type": "object",
+          "properties": {
+              "language": {
+                  "description": "Language is the language of the previous fields. May not always be present.",
+                  "type": "string"
+              },
+              "overview": {
+                  "description": "Overview is a medium-length textual summary of the place.",
+                  "type": "string"
+              }
+          }
+      },
+      "maps.PlaceReview": {
+          "type": "object",
+          "properties": {
+              "aspects": {
+                  "description": "Aspects contains a collection of AspectRatings, each of which provides a rating\nof a single attribute of the establishment. The first in the collection is\nconsidered the primary aspect.",
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.PlaceReviewAspect"
+                  }
+              },
+              "author_name": {
+                  "description": "AuthorName the name of the user who submitted the review. Anonymous reviews are\nattributed to \"A Google user\".",
+                  "type": "string"
+              },
+              "author_url": {
+                  "description": "AuthorURL the URL to the user's Google+ profile, if available.",
+                  "type": "string"
+              },
+              "language": {
+                  "description": "Language an IETF language code indicating the language used in the user's review.\nThis field contains the main language tag only, and not the secondary tag\nindicating country or region.",
+                  "type": "string"
+              },
+              "profile_photo_url": {
+                  "description": "AuthorPhoto the Google+ profile photo url of the user who submitted the review, if available.",
+                  "type": "string"
+              },
+              "rating": {
+                  "description": "Rating the user's overall rating for this place. This is a whole number, ranging\nfrom 1 to 5.",
+                  "type": "integer"
+              },
+              "text": {
+                  "description": "Text is the user's review. When reviewing a location with Google Places, text\nreviews are considered optional. Therefore, this field may by empty. Note that\nthis field may include simple HTML markup.",
+                  "type": "string"
+              },
+              "time": {
+                  "description": "Time the time that the review was submitted, measured in the number of seconds\nsince since midnight, January 1, 1970 UTC.",
+                  "type": "integer"
+              }
+          }
+      },
+      "maps.PlaceReviewAspect": {
+          "type": "object",
+          "properties": {
+              "rating": {
+                  "description": "Rating is the user's rating for this particular aspect, from 0 to 3.",
+                  "type": "integer"
+              },
+              "type": {
+                  "description": "Type is the name of the aspect that is being rated. The following types are\nsupported: appeal, atmosphere, decor, facilities, food, overall, quality and\nservice.",
+                  "type": "string"
+              }
+          }
+      },
+      "maps.PlacesSearchResult": {
+          "type": "object",
+          "properties": {
+              "business_status": {
+                  "description": "BusinessStatus is a string indicating the operational status of the\nplace, if it is a business.",
+                  "type": "string"
+              },
+              "formatted_address": {
+                  "description": "FormattedAddress is the human-readable address of this place",
+                  "type": "string"
+              },
+              "geometry": {
+                  "description": "Geometry contains geometry information about the result, generally including the\nlocation (geocode) of the place and (optionally) the viewport identifying its\ngeneral area of coverage.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.AddressGeometry"
+                      }
+                  ]
+              },
+              "icon": {
+                  "description": "Icon contains the URL of a recommended icon which may be displayed to the user\nwhen indicating this result.",
+                  "type": "string"
+              },
+              "id": {
+                  "description": "ID is an identifier.",
+                  "type": "string"
+              },
+              "name": {
+                  "description": "Name contains the human-readable name for the returned result. For establishment\nresults, this is usually the business name.",
+                  "type": "string"
+              },
+              "opening_hours": {
+                  "description": "OpeningHours may contain whether the place is open now or not.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.OpeningHours"
+                      }
+                  ]
+              },
+              "permanently_closed": {
+                  "description": "PermanentlyClosed is a boolean flag indicating whether the place has permanently\nshut down.",
+                  "type": "boolean"
+              },
+              "photos": {
+                  "description": "Photos is an array of photo objects, each containing a reference to an image.",
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.Photo"
+                  }
+              },
+              "place_id": {
+                  "description": "PlaceID is a textual identifier that uniquely identifies a place.",
+                  "type": "string"
+              },
+              "price_level": {
+                  "description": "PriceLevel is the price level of the place, on a scale of 0 to 4.",
+                  "type": "integer"
+              },
+              "rating": {
+                  "description": "Rating contains the place's rating, from 1.0 to 5.0, based on aggregated user\nreviews.",
+                  "type": "number"
+              },
+              "types": {
+                  "description": "Types contains an array of feature types describing the given result.",
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              },
+              "user_ratings_total": {
+                  "description": "UserRatingsTotal contains total number of the place's ratings",
+                  "type": "integer"
+              },
+              "vicinity": {
+                  "description": "Vicinity contains a feature name of a nearby location.",
+                  "type": "string"
+              }
+          }
+      },
+      "maps.Polyline": {
+          "type": "object",
+          "properties": {
+              "points": {
+                  "type": "string"
+              }
+          }
+      },
+      "maps.Route": {
+          "type": "object",
+          "properties": {
+              "bounds": {
+                  "description": "Bounds contains the viewport bounding box of the overview polyline.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.LatLngBounds"
+                      }
+                  ]
+              },
+              "copyrights": {
+                  "description": "Copyrights contains the copyrights text to be displayed for this route. You\nmust handle and display this information yourself.",
+                  "type": "string"
+              },
+              "fare": {
+                  "description": "Fare contains the total fare (that is, the total ticket costs) on this route.\nThis property is only returned for transit requests and only for routes where\nfare information is available for all transit legs.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.Fare"
+                      }
+                  ]
+              },
+              "legs": {
+                  "description": "Legs contains information about a leg of the route, between two locations within\nthe given route. A separate leg will be present for each waypoint or destination\nspecified. A route with no waypoints will contain exactly one leg within the legs\narray.",
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.Leg"
+                  }
+              },
+              "overview_polyline": {
+                  "description": "OverviewPolyline contains an approximate (smoothed) path of the resulting\ndirections.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.Polyline"
+                      }
+                  ]
+              },
+              "summary": {
+                  "description": "Summary contains a short textual description for the route, suitable for\nnaming and disambiguating the route from alternatives.",
+                  "type": "string"
+              },
+              "warnings": {
+                  "description": "Warnings contains an array of warnings to be displayed when showing these\ndirections. You must handle and display these warnings yourself.",
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              },
+              "waypoint_order": {
+                  "description": "WaypointOrder contains an array indicating the order of any waypoints in the\ncalculated route.",
+                  "type": "array",
+                  "items": {
+                      "type": "integer"
+                  }
+              }
+          }
+      },
+      "maps.Step": {
+          "type": "object",
+          "properties": {
+              "distance": {
+                  "description": "Distance contains the distance covered by this step until the next step.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.Distance"
+                      }
+                  ]
+              },
+              "duration": {
+                  "description": "Duration contains the typical time required to perform the step, until the next\nstep.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/time.Duration"
+                      }
+                  ]
+              },
+              "end_location": {
+                  "description": "EndLocation contains the location of the last point of this step, as a single\nset of lat and lng fields.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.LatLng"
+                      }
+                  ]
+              },
+              "html_instructions": {
+                  "description": "HTMLInstructions contains formatted instructions for this step, presented as an\nHTML text string.",
+                  "type": "string"
+              },
+              "polyline": {
+                  "description": "Polyline contains a single points object that holds an encoded polyline\nrepresentation of the step. This polyline is an approximate (smoothed) path of\nthe step.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.Polyline"
+                      }
+                  ]
+              },
+              "start_location": {
+                  "description": "StartLocation contains the location of the starting point of this step, as a\nsingle set of lat and lng fields.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.LatLng"
+                      }
+                  ]
+              },
+              "steps": {
+                  "description": "Steps contains detailed directions for walking or driving steps in transit\ndirections. Substeps are only available when travel_mode is set to \"transit\".\nThe inner steps array is of the same type as steps.",
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.Step"
+                  }
+              },
+              "transit_details": {
+                  "description": "TransitDetails contains transit specific information. This field is only\nreturned with travel mode is set to \"transit\".",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.TransitDetails"
+                      }
+                  ]
+              },
+              "travel_mode": {
+                  "description": "TravelMode indicates the travel mode of this step.",
+                  "type": "string"
+              }
+          }
+      },
+      "maps.TransitAgency": {
+          "type": "object",
+          "properties": {
+              "name": {
+                  "description": "Name contains the name of the transit agency",
+                  "type": "string"
+              },
+              "phone": {
+                  "description": "Phone contains the phone number of the transit agency",
+                  "type": "string"
+              },
+              "url": {
+                  "description": "URL contains the URL for the transit agency",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/url.URL"
+                      }
+                  ]
+              }
+          }
+      },
+      "maps.TransitDetails": {
+          "type": "object",
+          "properties": {
+              "arrival_stop": {
+                  "description": "ArrivalStop contains information about the stop/station for this part of the\ntrip.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.TransitStop"
+                      }
+                  ]
+              },
+              "arrival_time": {
+                  "description": "ArrivalTime contains the arrival time for this leg of the journey.",
+                  "type": "string"
+              },
+              "departure_stop": {
+                  "description": "DepartureStop contains information about the stop/station for this part of the\ntrip.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.TransitStop"
+                      }
+                  ]
+              },
+              "departure_time": {
+                  "description": "DepartureTime contains the departure time for this leg of the journey.",
+                  "type": "string"
+              },
+              "headsign": {
+                  "description": "Headsign specifies the direction in which to travel on this line, as it is\nmarked on the vehicle or at the departure stop.",
+                  "type": "string"
+              },
+              "headway": {
+                  "description": "Headway specifies the expected number of seconds between departures from the\nsame stop at this time",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/time.Duration"
+                      }
+                  ]
+              },
+              "line": {
+                  "description": "Line contains information about the transit line used in this step.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.TransitLine"
+                      }
+                  ]
+              },
+              "num_stops": {
+                  "description": "NumStops contains the number of stops in this step, counting the arrival stop,\nbut not the departure stop",
+                  "type": "integer"
+              },
+              "trip_short_name": {
+                  "description": "TripShortName contains additional information for this part of the\ntrip.",
+                  "type": "string"
+              }
+          }
+      },
+      "maps.TransitLine": {
+          "type": "object",
+          "properties": {
+              "agencies": {
+                  "description": "Agencies contains information about the operator of the line",
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/maps.TransitAgency"
+                  }
+              },
+              "color": {
+                  "description": "Color contains the color commonly used in signage for this transit line.",
+                  "type": "string"
+              },
+              "icon": {
+                  "description": "Icon contains the URL for the icon associated with this line",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/url.URL"
+                      }
+                  ]
+              },
+              "name": {
+                  "description": "Name contains the full name of this transit line. eg. \"7 Avenue Express\".",
+                  "type": "string"
+              },
+              "short_name": {
+                  "description": "ShortName contains the short name of this transit line.",
+                  "type": "string"
+              },
+              "text_color": {
+                  "description": "TextColor contains the color of text commonly used for signage of this line",
+                  "type": "string"
+              },
+              "url": {
+                  "description": "URL contains the URL for this transit line as provided by the transit agency",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/url.URL"
+                      }
+                  ]
+              },
+              "vehicle": {
+                  "description": "Vehicle contains the type of vehicle used on this line",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.TransitLineVehicle"
+                      }
+                  ]
+              }
+          }
+      },
+      "maps.TransitLineVehicle": {
+          "type": "object",
+          "properties": {
+              "icon": {
+                  "description": "Icon contains the URL for an icon associated with this vehicle type",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/url.URL"
+                      }
+                  ]
+              },
+              "name": {
+                  "description": "Name contains the name of the vehicle on this line",
+                  "type": "string"
+              },
+              "type": {
+                  "description": "Type contains the type of vehicle that runs on this line",
+                  "type": "string"
+              }
+          }
+      },
+      "maps.TransitStop": {
+          "type": "object",
+          "properties": {
+              "location": {
+                  "description": "Location of the transit station/stop.",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/maps.LatLng"
+                      }
+                  ]
+              },
+              "name": {
+                  "description": "Name of the transit station/stop. eg. \"Union Square\".",
+                  "type": "string"
+              }
+          }
+      },
+      "maps.ViaWaypoint": {
+          "type": "object",
+          "properties": {
+              "location": {
+                  "$ref": "#/definitions/maps.LatLng"
+              },
+              "step_index": {
+                  "type": "integer"
+              },
+              "step_interpolation": {
+                  "type": "number"
+              }
+          }
+      },
+      "time.Duration": {
+          "type": "integer",
+          "enum": [
+              -9223372036854775808,
+              9223372036854775807,
+              1,
+              1000,
+              1000000,
+              1000000000,
+              60000000000,
+              3600000000000
+          ],
+          "x-enum-varnames": [
+              "minDuration",
+              "maxDuration",
+              "Nanosecond",
+              "Microsecond",
+              "Millisecond",
+              "Second",
+              "Minute",
+              "Hour"
+          ]
+      },
+      "time.Weekday": {
+          "type": "integer",
+          "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+          ],
+          "x-enum-varnames": [
+              "Sunday",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+          ]
+      },
+      "url.URL": {
+          "type": "object",
+          "properties": {
+              "forceQuery": {
+                  "description": "append a query ('?') even if RawQuery is empty",
+                  "type": "boolean"
+              },
+              "fragment": {
+                  "description": "fragment for references, without '#'",
+                  "type": "string"
+              },
+              "host": {
+                  "description": "host or host:port",
+                  "type": "string"
+              },
+              "omitHost": {
+                  "description": "do not emit empty host (authority)",
+                  "type": "boolean"
+              },
+              "opaque": {
+                  "description": "encoded opaque data",
+                  "type": "string"
+              },
+              "path": {
+                  "description": "path (relative paths may omit leading slash)",
+                  "type": "string"
+              },
+              "rawFragment": {
+                  "description": "encoded fragment hint (see EscapedFragment method)",
+                  "type": "string"
+              },
+              "rawPath": {
+                  "description": "encoded path hint (see EscapedPath method)",
+                  "type": "string"
+              },
+              "rawQuery": {
+                  "description": "encoded query values, without '?'",
+                  "type": "string"
+              },
+              "scheme": {
+                  "type": "string"
+              },
+              "user": {
+                  "description": "username and password information",
+                  "allOf": [
+                      {
+                          "$ref": "#/definitions/url.Userinfo"
+                      }
+                  ]
+              }
+          }
+      },
+      "url.Userinfo": {
+          "type": "object"
       }
-    },
-    "model.UserCoupon": {
-      "type": "object",
-      "properties": {
-        "coupon": {
-          "$ref": "#/definitions/model.Coupon"
-        },
-        "couponId": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "status": {
-          "$ref": "#/definitions/model.UserCouponStatus"
-        },
-        "updatedAt": {
-          "type": "string"
-        },
-        "user": {
-          "$ref": "#/definitions/model.User"
-        },
-        "userId": {
-          "type": "string"
-        }
-      }
-    },
-    "model.UserCouponStatus": {
-      "type": "string",
-      "enum": ["COUPON_AVAILABLE", "COUPON_USED"],
-      "x-enum-varnames": ["COUPON_AVAILABLE", "COUPON_USED"]
-    }
   }
 }

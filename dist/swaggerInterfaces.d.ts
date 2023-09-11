@@ -70,6 +70,7 @@ export interface IParameterSchema {
     $ref: string;
     items?: IParameterItems;
     type: string;
+    enum?: (string | number)[];
 }
 export interface IParameterItems {
     type?: string;

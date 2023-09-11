@@ -13,9 +13,6 @@ export function serviceHeader(options: ISwaggerOptions) {
 
   ${classTransformerImport}
 
-  export interface IRequestOptions {
-  }
-
   export interface IRequestConfig {
     method?: any;
     headers?: any;
@@ -40,9 +37,6 @@ export function customerServiceHeader(options: ISwaggerOptions) {
   return `/** Generate by swagger-http-codegen */
   // @ts-nocheck
   /* eslint-disable */
-  export interface IRequestOptions {
-    headers?: any;
-  }
   export interface IRequestPromise<T=any> extends Promise<IRequestResponse<T>> {}
 
   export interface IRequestResponse<T=any> {

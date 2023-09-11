@@ -49,7 +49,9 @@ export function getRequestParameters(params: IParameter[], useHeaderParameters: 
     let propType = ''
     // reference type definition
     if (p.schema) {
-      if (p.schema.items) {
+      if (p.schema.enum) {
+        propType = p.schema.enum.map((e) => (isNumber(e) ? e : `"${e}"`)).join(' | ')
+      } else if (p.schema.items) {
         propType = refClassName(p.schema.items.$ref)
         if (p.schema.type && p.schema.type === 'array') {
           propType += '[]'

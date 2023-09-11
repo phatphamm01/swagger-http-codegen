@@ -104,7 +104,7 @@ function codegen(params) {
         let serviceHeaderSource = options.useCustomerRequestInstance ? (0, serviceHeader_1.customerServiceHeader)(options) : (0, serviceHeader_1.serviceHeader)(options);
         if (true) {
             writeFile(options.outputDir || '', 'service-options.ts' || '', format(serviceHeaderSource, options));
-            apiSource += `import { IRequestOptions, IRequestConfig, IFetchConfig, getConfigs } from "./service-options";
+            apiSource += `import { IRequestConfig, IFetchConfig, getConfigs } from "./service-options";
     
     `;
         }
@@ -243,10 +243,14 @@ function codegenAll(apiSource, options, requestClass, models, enums) {
                 : (0, template_1.classTemplate)(item.value.name, item.value.props, [], options.strictNullChecks, options.useClassTransformer, options.generateValidationModel);
             apiSource += text;
         });
+        const hashMapEnums = {};
         Object.values(enums).forEach(item => {
             let text = '';
+            if (hashMapEnums[item.value.name])
+                return;
             if (item.value) {
                 if (item.value.type == 'string') {
+                    hashMapEnums[item.value.name] = true;
                     text = (0, template_1.enumTemplate)(item.value.name, item.value.enumProps, options.enumNamePrefix);
                 }
                 else {

@@ -2,8 +2,6 @@
 /* #eslint-disable */
 // #ts-nocheck
 
-export interface IRequestOptions {}
-
 export interface IRequestConfig {
   method?: any;
   headers?: any;

@@ -219,7 +219,7 @@ export function requestTemplate(name: string, requestSchema: IRequestSchema, opt
  */
   ${camelcase(
     name
-  )}(${parameters}options:IRequestOptions={}):Promise<${responseType}> {
+  )}(${parameters}):Promise<${responseType}> {
   return new Promise((resolve, reject) => {
     let url = basePath+'${path}'
     ${pathReplace}
